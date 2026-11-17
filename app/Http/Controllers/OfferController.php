@@ -64,6 +64,7 @@ class OfferController extends Controller
             'vehicles' => VehicleListing::active()->with('photos')->latest('published_at')->limit(4)->get(),
             'billboard' => \App\Models\AdCampaign::pick('billboard'),
             'box' => \App\Models\AdCampaign::pick('box'),
+            'posts' => \App\Models\Post::published()->forLocale()->latest('published_at')->limit(3)->get(),
         ]);
     }
 

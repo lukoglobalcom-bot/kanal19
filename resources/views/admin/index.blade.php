@@ -1,6 +1,12 @@
 <x-layouts.app :title="__('Panel administratora')">
     <div class="mx-auto max-w-6xl px-4 pt-10 sm:px-6">
-        <h1 class="font-display text-[clamp(30px,4vw,42px)] font-extrabold">{{ __('Panel administratora') }}</h1>
+        <div class="flex flex-wrap items-end justify-between gap-4">
+            <h1 class="font-display text-[clamp(30px,4vw,42px)] font-extrabold">{{ __('Panel administratora') }}</h1>
+            <div class="flex flex-wrap gap-2">
+                <a href="{{ route('admin.posts.admin') }}" class="k19-btn-ghost">{{ __('Aktualności') }}</a>
+                <a href="{{ route('admin.posts.create') }}" class="k19-btn-red">{{ __('Nowy wpis') }}</a>
+            </div>
+        </div>
 
         <div class="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
             @foreach ($stats as $label => $value)
