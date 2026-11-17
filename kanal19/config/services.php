@@ -32,6 +32,8 @@ return [
     'smsapi' => [
         'token' => env('SMS_API_TOKEN'),
         'sender' => env('SMS_SENDER'),
+        // true = zawsze wymagaj kodu SMS (np. w testach). Bez tokenu i bez tej flagi weryfikacja jest pominięta.
+        'required' => env('SMS_REQUIRED', false),
     ],
 
     'slack' => [

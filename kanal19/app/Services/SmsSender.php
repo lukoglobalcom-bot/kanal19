@@ -22,6 +22,15 @@ class SmsSender
 
     public const RESEND_SECONDS = 60;
 
+    /**
+     * Czy portal wymaga potwierdzenia numeru kodem SMS.
+     * Dopóki nie ma tokenu bramki SMS, weryfikacja jest pominięta (konta działają od razu).
+     */
+    public static function required(): bool
+    {
+        return (bool) config('services.smsapi.token') || filter_var(config('services.smsapi.required'), FILTER_VALIDATE_BOOL);
+    }
+
     /** Zwraca false, jeśli od ostatniego kodu minęło mniej niż 60 sekund. */
     public function sendCode(User $user): bool
     {

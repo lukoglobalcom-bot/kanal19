@@ -6,7 +6,7 @@
         <div class="mt-6 grid gap-5 md:grid-cols-2">
             <section class="k19-card flex flex-col gap-3 p-6">
                 <h2 class="font-display text-xl font-bold">{{ __('Mój profil') }}</h2>
-                <p>{{ $p?->first_name }} {{ $p?->last_name }} · {{ $user->phone }} <span class="text-[#1E7A46]">✓ {{ __('potwierdzony') }}</span></p>
+                <p>{{ $p?->first_name }} {{ $p?->last_name }} · {{ $user->phone }} @if ($user->phone_verified_at)<span class="text-[#1E7A46]">✓ {{ __('potwierdzony') }}</span>@endif</p>
                 <p class="text-k19-muted">{{ __('Staż:') }} {{ __(A::EXPERIENCE[$p?->experience] ?? '') }}</p>
                 <div class="flex flex-wrap gap-2">
                     @foreach ($p?->licences ?? [] as $l)<span class="k19-tag">{{ $l }}</span>@endforeach

@@ -120,7 +120,7 @@
                                 <td class="p-3 font-semibold">{{ $u->name }}</td>
                                 <td class="p-3">{{ $u->email }}</td>
                                 <td class="p-3">{{ __(['driver' => 'Kierowca', 'company' => 'Firma', 'advertiser' => 'Reklamodawca'][$u->role] ?? $u->role) }}</td>
-                                <td class="p-3">{{ $u->phone }} @if ($u->hasVerifiedPhone())<span class="text-[#1E7A46]">✓</span>@endif</td>
+                                <td class="p-3">{{ $u->phone }} @if ($u->phone_verified_at)<span class="text-[#1E7A46]">✓</span>@endif</td>
                                 <td class="p-3 text-right">
                                     <form method="POST" action="{{ route('admin.users.block', $u) }}">
                                         @csrf

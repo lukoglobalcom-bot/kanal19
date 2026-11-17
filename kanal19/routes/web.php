@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdvertiserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CbController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\MapController;
@@ -28,6 +29,15 @@ Route::middleware(['auth', 'phone'])->group(function () {
     Route::post('/mapa/zgloszenia', [MapController::class, 'store'])->middleware('throttle:15,1')->name('map.store');
     Route::post('/mapa/sos/{report}/pomoc', [MapController::class, 'help'])->middleware('throttle:30,1')->name('map.help');
     Route::post('/mapa/zgloszenia/{report}/zamknij', [MapController::class, 'close'])->name('map.close');
+});
+
+// CB Kanał 19 – tekstowe radio kierowców
+Route::get('/cb', [CbController::class, 'index'])->name('cb.index');
+Route::get('/cb/wiadomosci', [CbController::class, 'messages'])->middleware('throttle:60,1')->name('cb.messages');
+Route::middleware(['auth', 'phone'])->group(function () {
+    Route::post('/cb/wiadomosci', [CbController::class, 'store'])->middleware('throttle:6,1')->name('cb.store');
+    Route::post('/cb/wiadomosci/{message}/zglos', [CbController::class, 'report'])->middleware('throttle:20,1')->name('cb.report');
+    Route::delete('/cb/wiadomosci/{message}', [CbController::class, 'destroy'])->name('cb.destroy');
 });
 
 // Aktualności i poradniki
