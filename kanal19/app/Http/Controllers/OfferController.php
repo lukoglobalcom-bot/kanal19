@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JobOffer;
+use App\Models\VehicleListing;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -60,6 +61,9 @@ class OfferController extends Controller
         return view('home', [
             'offers' => $query->paginate(15)->withQueryString(),
             'filters' => $filters,
+            'vehicles' => VehicleListing::active()->with('photos')->latest('published_at')->limit(4)->get(),
+            'billboard' => \App\Models\AdCampaign::pick('billboard'),
+            'box' => \App\Models\AdCampaign::pick('box'),
         ]);
     }
 

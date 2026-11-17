@@ -41,6 +41,7 @@
                 @elseif ($u->isAdvertiser())
                     <a href="{{ route('advertiser.index') }}" class="inline-flex min-h-11 items-center rounded-xl border border-[#4A4F5A] px-4 font-semibold text-white no-underline">{{ __('Panel reklamodawcy') }}</a>
                 @endif
+                <a href="{{ route('vehicles.mine') }}" class="inline-flex min-h-11 items-center rounded-xl border border-[#4A4F5A] px-4 font-semibold text-white no-underline">{{ __('Moje pojazdy') }}</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button class="inline-flex min-h-11 items-center rounded-xl px-3 font-semibold text-[#C9CCD3] hover:text-white">{{ __('Wyloguj') }}</button>
@@ -54,12 +55,14 @@
         <nav aria-label="{{ __('Główne menu') }}" class="order-3 flex w-full flex-wrap gap-2.5 pt-1">
             <a href="{{ route('home') }}#oferty" class="k19-sign">{{ __('Oferty pracy') }}</a>
             <a href="{{ route('home') }}#kategorie" class="k19-sign">{{ __('Kategorie') }}</a>
+            <a href="{{ route('vehicles.index') }}" class="k19-sign">{{ __('Giełda pojazdów') }}</a>
             @auth
                 @if (auth()->user()->isCompany())
                     <a href="{{ route('company.drivers') }}" class="k19-sign">{{ __('Baza kierowców') }}</a>
                 @endif
             @endauth
             <a href="{{ route('register', ['konto' => 'company']) }}" class="k19-sign">{{ __('Dla pracodawców') }}</a>
+            <a href="{{ route('vehicles.create') }}" class="k19-sign-sos">{{ __('Sprzedaj pojazd') }}</a>
         </nav>
     </div>
 </header>

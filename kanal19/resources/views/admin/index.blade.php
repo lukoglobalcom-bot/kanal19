@@ -40,6 +40,68 @@
         </section>
 
         <section class="mt-10">
+            <h2 class="font-display text-2xl font-extrabold">{{ __('Kampanie reklamowe') }}</h2>
+            <div class="k19-card mt-3 overflow-x-auto">
+                <table class="w-full min-w-[720px] text-left">
+                    <thead class="bg-k19-paper text-sm uppercase tracking-wide text-k19-muted">
+                        <tr><th class="p-3">{{ __('Nazwa') }}</th><th class="p-3">{{ __('Reklamodawca') }}</th><th class="p-3">{{ __('Języki') }}</th><th class="p-3">{{ __('Status') }}</th><th class="p-3"></th></tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($campaigns as $c)
+                            <tr class="border-t border-[#E2E0DA]">
+                                <td class="p-3 font-semibold">{{ $c->name }}</td>
+                                <td class="p-3">{{ $c->advertiser?->displayName() }}</td>
+                                <td class="p-3">{{ strtoupper(implode(', ', $c->languages ?? [])) }} ({{ $c->creatives_count }})</td>
+                                <td class="p-3">{{ $c->isLive() ? __('Wyświetlana') : ($c->isAccepted() ? __('Czeka na włączenie') : __('Szkic')) }}</td>
+                                <td class="flex justify-end gap-2 p-3">
+                                    <a href="{{ route('advertiser.campaigns.edit', $c) }}" class="k19-btn-ghost min-h-10 px-3 text-sm">{{ __('Edytuj') }}</a>
+                                    @if ($c->isAccepted())
+                                        <form method="POST" action="{{ route('admin.campaigns.toggle', $c) }}">
+                                            @csrf
+                                            <button class="k19-btn-dark min-h-10 px-3 text-sm">{{ $c->active ? __('Wyłącz') : __('Włącz') }}</button>
+                                        </form>
+                                    @endif
+                                </td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="5" class="p-4 text-k19-muted">{{ __('Brak kampanii.') }}</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="mt-10">
+            <h2 class="font-display text-2xl font-extrabold">{{ __('Giełda pojazdów') }}</h2>
+            <div class="k19-card mt-3 overflow-x-auto">
+                <table class="w-full min-w-[720px] text-left">
+                    <thead class="bg-k19-paper text-sm uppercase tracking-wide text-k19-muted">
+                        <tr><th class="p-3">{{ __('Pojazd') }}</th><th class="p-3">{{ __('Sprzedający') }}</th><th class="p-3">{{ __('Cena') }}</th><th class="p-3">{{ __('Status') }}</th><th class="p-3"></th></tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($vehicles as $v)
+                            <tr class="border-t border-[#E2E0DA]">
+                                <td class="p-3 font-semibold"><a href="{{ route('vehicles.show', $v) }}" class="text-k19-ink">{{ $v->title() }}</a></td>
+                                <td class="p-3">{{ $v->seller?->name }}</td>
+                                <td class="p-3">{{ $v->priceLabel() }}</td>
+                                <td class="p-3">{{ ! $v->isPublished() ? __('Szkic') : ($v->isActive() ? __('Aktywne') : __('Wygasło')) }}</td>
+                                <td class="flex justify-end gap-2 p-3">
+                                    <a href="{{ route('vehicles.edit', $v) }}" class="k19-btn-ghost min-h-10 px-3 text-sm">{{ __('Edytuj') }}</a>
+                                    <form method="POST" action="{{ route('vehicles.destroy', $v) }}" onsubmit="return confirm(@js(__('Usunąć to ogłoszenie?')))">
+                                        @csrf @method('DELETE')
+                                        <button class="k19-btn-dark min-h-10 px-3 text-sm">{{ __('Usuń') }}</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="5" class="p-4 text-k19-muted">{{ __('Brak ogłoszeń.') }}</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="mt-10">
             <h2 class="font-display text-2xl font-extrabold">{{ __('Użytkownicy') }}</h2>
             <div class="k19-card mt-3 overflow-x-auto">
                 <table class="w-full min-w-[720px] text-left">
