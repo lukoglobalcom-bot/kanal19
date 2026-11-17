@@ -1,0 +1,626 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The skeleton application for the Laravel framework.",
+    "keywords": [
+        "laravel",
+        "framework"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^8.3",
+        "laravel/framework": "^13.17",
+        "laravel/tinker": "^3.0"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "mockery/mockery": "^1.6",
+        "phpunit/phpunit": "^12.5.12"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "setup": [
+            "composer install",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate",
+            "@php artisan migrate --force",
+            "npm install --ignore-scripts",
+            "npm run build"
+        ],
+        "test": [
+            "@php artisan config:clear --ansi @no_additional_args",
+            "@php artisan test"
+        ],
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
+            "@php artisan migrate --graceful --ansi"
+        ],
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "source",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/doctrine/lexer",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/version",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/type",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/recursion-context",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/object-reflector",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/object-enumerator",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/lines-of-code",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/global-state",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/exporter",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/environment",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/diff",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/complexity",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/comparator",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/cli-parser",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/php-timer",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/staabm/side-effects-detector",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/theseer/tokenizer",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nikic/PHP-Parser",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ramsey/collection",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/CarbonPHP/carbon-doctrine-types",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/schmittjoh/php-option",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/GrahamCampbell/Result-Type",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nette/utils",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nette/schema",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/dflydev/dflydev-dot-access-data",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/thephpleague/uri-interfaces",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/thephpleague/mime-type-detection",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/thephpleague/config",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ralouphie/getallheaders",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/php-fig/http-client",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/php-fig/http-factory",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/php-fig/event-dispatcher",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/php-fig/clock",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/clock",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/translation-contracts",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/translation",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/string",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/service-contracts",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/polyfill-php80",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/polyfill-php83",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/polyfill-uuid",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/polyfill-intl-idn",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/polyfill-intl-normalizer",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/polyfill-intl-grapheme",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/polyfill-ctype",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/event-dispatcher-contracts",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/event-dispatcher",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/css-selector",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/php-text-template",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/php-invoker",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/php-file-iterator",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/php-code-coverage",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/phar-io/version",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/phar-io/manifest",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/myclabs/DeepCopy",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/filp/whoops",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/hamcrest/hamcrest-php",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/laravel/agent-detector",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/polyfill-mbstring",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/illuminate/contracts",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/bobthecow/psysh",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/illuminate/console",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/voku/portable-ascii",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/vlucas/phpdotenv",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/tijsverkoyen/CssToInlineStyles",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/var-dumper",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/uid",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/routing",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/process",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/polyfill-php86",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/polyfill-php85",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/polyfill-php84",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/mime",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/mailer",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/http-kernel",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/http-foundation",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/finder",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/error-handler",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/console",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/ramsey/uuid",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/php-fig/simple-cache",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/php-fig/log",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/php-fig/http-message",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nunomaduro/termwind",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/briannesbitt/Carbon",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Seldaek/monolog",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/thephpleague/uri",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/thephpleague/flysystem-local",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/thephpleague/flysystem",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/thephpleague/commonmark",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/laravel/serializable-closure",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/laravel/prompts",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/guzzle/uri-template",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/guzzle/psr7",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/guzzle/promises",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/guzzle/guzzle",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/fruitcake/php-cors",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/egulias/EmailValidator",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/dragonmantank/cron-expression",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/deprecation-contracts",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/sebastianbergmann/phpunit",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/doctrine/inflector",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/php-fig/container",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/brick/math",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/mockery/mockery",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/FakerPHP/Faker",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/laravel/framework",
+            "no-api": true
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/laravel/tinker",
+            "no-api": true
+        },
+        {
+            "packagist.org": false
+        }
+    ]
+}
