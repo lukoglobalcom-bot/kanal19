@@ -33,8 +33,16 @@
                 </div>
                 <button class="k19-btn-dark">{{ __('Szukaj ofert') }}</button>
             </form>
+            <div class="flex w-full flex-wrap items-center gap-3">
+                <a href="{{ route('vehicles.create') }}" class="k19-btn bg-white text-k19-red hover:bg-k19-paper">{{ __('Sprzedaj pojazd') }}</a>
+                <a href="{{ route('vehicles.index') }}" class="font-semibold text-white underline">{{ __('Giełda pojazdów') }} →</a>
+            </div>
         </div>
     </section>
+
+    @if ($billboard)
+        <div class="mx-auto max-w-6xl px-4 pt-10 sm:px-6"><x-ad-slot :ad="$billboard" /></div>
+    @endif
 
     {{-- Kategorie --}}
     <section id="kategorie" class="mx-auto max-w-6xl px-4 pt-14 sm:px-6">
@@ -74,6 +82,9 @@
                 <input id="od" name="od" type="number" min="0" value="{{ $filters['od'] ?? '' }}" class="k19-input" placeholder="{{ __('np. 9 000') }}">
             </div>
             <button class="k19-btn-red">{{ __('Pokaż oferty') }}</button>
+            @if ($box)
+                <div class="-mx-1"><x-ad-slot :ad="$box" compact /></div>
+            @endif
         </form>
 
         <div class="flex min-w-0 flex-[999_1_560px] flex-col gap-4">
@@ -105,6 +116,25 @@
 
             {{ $offers->links() }}
         </div>
+    </section>
+
+    {{-- Giełda pojazdów --}}
+    <section class="mx-auto max-w-6xl px-4 pt-16 sm:px-6">
+        <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+                <h2 class="font-display text-[clamp(28px,3.4vw,40px)] font-extrabold">{{ __('Giełda pojazdów') }}</h2>
+                <p class="text-k19-muted">{{ __('Nowe, używane i poleasingowe – ciągniki, naczepy, busy i autobusy.') }}</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+                <a href="{{ route('vehicles.index') }}" class="k19-btn-ghost">{{ __('Zobacz wszystkie') }}</a>
+                <a href="{{ route('vehicles.create') }}" class="k19-btn-red">{{ __('Sprzedaj pojazd') }}</a>
+            </div>
+        </div>
+        @if ($vehicles->isNotEmpty())
+            <div class="mt-6 grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4">
+                @foreach ($vehicles as $listing)<x-vehicle-card :listing="$listing" />@endforeach
+            </div>
+        @endif
     </section>
 
     {{-- Dla pracodawców --}}

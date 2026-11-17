@@ -23,7 +23,17 @@ class AdminController extends Controller
             ],
             'users' => User::where('role', '!=', 'admin')->latest()->limit(50)->get(),
             'offers' => JobOffer::with('company')->withCount('applications')->latest()->limit(50)->get(),
+            'vehicles' => \App\Models\VehicleListing::with('seller')->latest()->limit(50)->get(),
+            'campaigns' => \App\Models\AdCampaign::with('advertiser')->withCount('creatives')->latest()->limit(50)->get(),
         ]);
+    }
+
+    public function toggleCampaign(\App\Models\AdCampaign $campaign): RedirectResponse
+    {
+        abort_unless($campaign->isAccepted(), 422);
+        $campaign->forceFill(['active' => ! $campaign->active])->save();
+
+        return back()->with('status', $campaign->active ? __('Kampania włączona.') : __('Kampania wyłączona.'));
     }
 
     public function toggleBlock(User $user): RedirectResponse
