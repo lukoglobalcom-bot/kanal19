@@ -5,14 +5,14 @@ namespace App\Services;
 use App\Models\SmsCode;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 /**
  * Wysyłka i sprawdzanie kodów SMS.
  *
- * Teraz kod trafia do logów (storage/logs/laravel.log), żeby można było testować za darmo.
- * Żeby wysyłać prawdziwe SMS-y, wystarczy podmienić metodę deliver() na wywołanie API
- * wybranej bramki SMS (klucz w pliku .env jako SMS_API_TOKEN).
+ * Gdy w pliku .env jest SMS_API_TOKEN, kod idzie prawdziwym SMS-em przez smsapi.pl.
+ * Bez tokenu kod trafia tylko do logów (storage/logs/laravel.log) – do testów za darmo.
  */
 class SmsSender
 {
@@ -66,6 +66,32 @@ class SmsSender
 
     protected function deliver(string $phone, string $text): void
     {
-        Log::info('[SMS do '.$phone.'] '.$text);
+        $token = config('services.smsapi.token');
+        if (! $token) {
+            Log::info('[SMS do '.$phone.'] '.$text);
+
+            return;
+        }
+
+        $params = [
+            'to' => ltrim($phone, '+'),
+            'message' => $text,
+            'format' => 'json',
+            'encoding' => 'utf-8',
+        ];
+        if ($sender = config('services.smsapi.sender')) {
+            $params['from'] = $sender;
+        }
+
+        try {
+            $response = Http::withToken($token)->asForm()->timeout(15)
+                ->post('https://api.smsapi.pl/sms.do', $params);
+
+            if ($response->failed() || $response->json('error')) {
+                Log::error('[SMSAPI] Nie wysłano SMS do '.$phone.': '.$response->body());
+            }
+        } catch (\Throwable $e) {
+            Log::error('[SMSAPI] Błąd połączenia: '.$e->getMessage());
+        }
     }
 }
