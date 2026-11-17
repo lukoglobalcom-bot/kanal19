@@ -22,6 +22,8 @@ Route::get('/pojazdy/{vehicle}', [VehicleController::class, 'show'])->whereNumbe
 Route::get('/mapa', [MapController::class, 'index'])->name('map.index');
 Route::get('/mapa/dane', [MapController::class, 'data'])->name('map.data');
 Route::get('/sos', [MapController::class, 'sos'])->name('map.sos');
+Route::view('/app', 'app')->name('app');
+Route::view('/kalkulator', 'calculator')->name('calculator');
 Route::middleware(['auth', 'phone'])->group(function () {
     Route::post('/mapa/zgloszenia', [MapController::class, 'store'])->middleware('throttle:15,1')->name('map.store');
     Route::post('/mapa/sos/{report}/pomoc', [MapController::class, 'help'])->middleware('throttle:30,1')->name('map.help');

@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ isset($title) ? $title.' – ' : '' }}kanal19.pl – {{ __('Portal dla kierowców') }}</title>
-    <link rel="icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" href="{{ asset('favicon-32.png') }}" type="image/png">
+    <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ asset('manifest.webmanifest') }}">
+    <meta name="theme-color" content="#16181D">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700;800&display=swap">
@@ -52,20 +55,20 @@
             @endauth
         </div>
 
-        <nav aria-label="{{ __('Główne menu') }}" class="order-3 flex w-full flex-wrap gap-2.5 pt-1">
-            <a href="{{ route('home') }}#oferty" class="k19-sign">{{ __('Oferty pracy') }}</a>
-            <a href="{{ route('home') }}#kategorie" class="k19-sign">{{ __('Kategorie') }}</a>
-            <a href="{{ route('vehicles.index') }}" class="k19-sign">{{ __('Giełda pojazdów') }}</a>
-            <a href="{{ route('map.index') }}" class="k19-sign">{{ __('Mapa i parkingi') }}</a>
-            <a href="{{ route('posts.index') }}" class="k19-sign">{{ __('Aktualności') }}</a>
+        <nav aria-label="{{ __('Główne menu') }}" class="order-3 -mx-4 flex w-[calc(100%+2rem)] flex-nowrap gap-2.5 overflow-x-auto px-4 pb-1 pt-1 [scrollbar-width:none] sm:mx-0 sm:w-full sm:flex-wrap sm:overflow-visible sm:px-0">
+            <a href="{{ route('home') }}#oferty" class="k19-sign shrink-0">{{ __('Oferty pracy') }}</a>
+            <a href="{{ route('home') }}#kategorie" class="k19-sign shrink-0">{{ __('Kategorie') }}</a>
+            <a href="{{ route('vehicles.index') }}" class="k19-sign shrink-0">{{ __('Giełda pojazdów') }}</a>
+            <a href="{{ route('map.index') }}" class="k19-sign shrink-0">{{ __('Mapa i parkingi') }}</a>
+            <a href="{{ route('posts.index') }}" class="k19-sign shrink-0">{{ __('Aktualności') }}</a>
             @auth
                 @if (auth()->user()->isCompany())
-                    <a href="{{ route('company.drivers') }}" class="k19-sign">{{ __('Baza kierowców') }}</a>
+                    <a href="{{ route('company.drivers') }}" class="k19-sign shrink-0">{{ __('Baza kierowców') }}</a>
                 @endif
             @endauth
-            <a href="{{ route('register', ['konto' => 'company']) }}" class="k19-sign">{{ __('Dla pracodawców') }}</a>
-            <a href="{{ route('vehicles.create') }}" class="k19-sign-sos">{{ __('Sprzedaj pojazd') }}</a>
-            <a href="{{ route('map.sos') }}" class="k19-sign bg-white text-k19-red">SOS</a>
+            <a href="{{ route('register', ['konto' => 'company']) }}" class="k19-sign shrink-0">{{ __('Dla pracodawców') }}</a>
+            <a href="{{ route('vehicles.create') }}" class="k19-sign-sos shrink-0">{{ __('Sprzedaj pojazd') }}</a>
+            <a href="{{ route('map.sos') }}" class="k19-sign shrink-0 bg-white text-k19-red">SOS</a>
         </nav>
     </div>
 </header>
@@ -91,6 +94,9 @@
                 <span class="font-bold text-white">{{ __('Dla kierowców') }}</span>
                 <a href="{{ route('home') }}#oferty" class="text-[#C9CCD3] no-underline hover:text-white">{{ __('Oferty pracy') }}</a>
                 <a href="{{ route('register') }}" class="text-[#C9CCD3] no-underline hover:text-white">{{ __('Załóż konto za darmo') }}</a>
+                <a href="{{ route('map.index') }}" class="text-[#C9CCD3] no-underline hover:text-white">{{ __('Mapa i parkingi') }}</a>
+                <a href="{{ route('calculator') }}" class="text-[#C9CCD3] no-underline hover:text-white">{{ __('Kalkulator trasy') }}</a>
+                <a href="{{ route('app') }}" class="text-[#C9CCD3] no-underline hover:text-white">{{ __('Aplikacja na telefon') }}</a>
             </nav>
             <nav aria-label="{{ __('Dla pracodawców') }}" class="flex flex-col gap-2.5 text-[15px]">
                 <span class="font-bold text-white">{{ __('Dla pracodawców') }}</span>
@@ -104,5 +110,10 @@
         </div>
     </div>
 </footer>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => navigator.serviceWorker.register('{{ asset('sw.js') }}').catch(() => {}));
+    }
+</script>
 </body>
 </html>
