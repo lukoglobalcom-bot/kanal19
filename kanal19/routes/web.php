@@ -5,7 +5,9 @@ use App\Http\Controllers\AdvertiserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DriverController;
+use App\Http\Controllers\MapController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +17,20 @@ Route::get('/oferty/{offer}', [OfferController::class, 'show'])->name('offers.sh
 // Giełda pojazdów – lista i ogłoszenia dla wszystkich
 Route::get('/pojazdy', [VehicleController::class, 'index'])->name('vehicles.index');
 Route::get('/pojazdy/{vehicle}', [VehicleController::class, 'show'])->whereNumber('vehicle')->name('vehicles.show');
+
+// Mapa kierowców i SOS
+Route::get('/mapa', [MapController::class, 'index'])->name('map.index');
+Route::get('/mapa/dane', [MapController::class, 'data'])->name('map.data');
+Route::get('/sos', [MapController::class, 'sos'])->name('map.sos');
+Route::middleware(['auth', 'phone'])->group(function () {
+    Route::post('/mapa/zgloszenia', [MapController::class, 'store'])->middleware('throttle:15,1')->name('map.store');
+    Route::post('/mapa/sos/{report}/pomoc', [MapController::class, 'help'])->middleware('throttle:30,1')->name('map.help');
+    Route::post('/mapa/zgloszenia/{report}/zamknij', [MapController::class, 'close'])->name('map.close');
+});
+
+// Aktualności i poradniki
+Route::get('/aktualnosci', [PostController::class, 'index'])->name('posts.index');
+Route::get('/aktualnosci/{post}', [PostController::class, 'show'])->whereNumber('post')->name('posts.show');
 
 Route::post('/jezyk', [AuthController::class, 'setLanguage'])->name('language');
 
@@ -75,6 +91,12 @@ Route::get('/artykul/{creative}', [AdvertiserController::class, 'article'])->nam
 // Administrator
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::get('/wpisy', [PostController::class, 'admin'])->name('posts.admin');
+    Route::get('/wpisy/nowy', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/wpisy', [PostController::class, 'store'])->name('posts.store');
+    Route::get('/wpisy/{post}/edytuj', [PostController::class, 'edit'])->name('posts.edit');
+    Route::put('/wpisy/{post}', [PostController::class, 'update'])->name('posts.update');
+    Route::delete('/wpisy/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
     Route::post('/kampanie/{campaign}/wlacz', [AdminController::class, 'toggleCampaign'])->name('campaigns.toggle');
     Route::post('/uzytkownicy/{user}/blokada', [AdminController::class, 'toggleBlock'])->name('users.block');
     Route::get('/oferty/{offer}/edytuj', [AdminController::class, 'editOffer'])->name('offers.edit');

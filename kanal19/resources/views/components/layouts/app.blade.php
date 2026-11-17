@@ -56,6 +56,8 @@
             <a href="{{ route('home') }}#oferty" class="k19-sign">{{ __('Oferty pracy') }}</a>
             <a href="{{ route('home') }}#kategorie" class="k19-sign">{{ __('Kategorie') }}</a>
             <a href="{{ route('vehicles.index') }}" class="k19-sign">{{ __('Giełda pojazdów') }}</a>
+            <a href="{{ route('map.index') }}" class="k19-sign">{{ __('Mapa i parkingi') }}</a>
+            <a href="{{ route('posts.index') }}" class="k19-sign">{{ __('Aktualności') }}</a>
             @auth
                 @if (auth()->user()->isCompany())
                     <a href="{{ route('company.drivers') }}" class="k19-sign">{{ __('Baza kierowców') }}</a>
@@ -63,6 +65,7 @@
             @endauth
             <a href="{{ route('register', ['konto' => 'company']) }}" class="k19-sign">{{ __('Dla pracodawców') }}</a>
             <a href="{{ route('vehicles.create') }}" class="k19-sign-sos">{{ __('Sprzedaj pojazd') }}</a>
+            <a href="{{ route('map.sos') }}" class="k19-sign bg-white text-k19-red">SOS</a>
         </nav>
     </div>
 </header>

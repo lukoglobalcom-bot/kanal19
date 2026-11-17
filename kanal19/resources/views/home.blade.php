@@ -118,6 +118,33 @@
         </div>
     </section>
 
+    {{-- Mapa kierowców i SOS --}}
+    <section class="mx-auto max-w-6xl px-4 pt-16 sm:px-6">
+        <div class="grid gap-4 md:grid-cols-[2fr_1fr]">
+            <a href="{{ route('map.index') }}" class="k19-card flex flex-col gap-2 p-6 text-k19-ink no-underline hover:border-k19-red">
+                <span class="font-display text-sm font-extrabold uppercase tracking-widest text-k19-red">{{ __('Mapa kierowców') }}</span>
+                <span class="font-display text-[clamp(24px,3vw,32px)] font-extrabold leading-tight">{{ __('Wolne miejsca na parkingach i ceny paliwa od kierowców') }}</span>
+                <span class="text-k19-muted">{{ __('Zgłaszaj i sprawdzaj na żywo – w PLN, EUR i walucie każdego kraju.') }}</span>
+            </a>
+            <a href="{{ route('map.sos') }}" class="flex flex-col justify-center gap-2 rounded-2xl bg-k19-red p-6 text-white no-underline">
+                <span class="font-display text-5xl font-extrabold">SOS</span>
+                <span class="font-semibold">{{ __('Wezwij pomoc innych kierowców jednym przyciskiem.') }}</span>
+            </a>
+        </div>
+    </section>
+
+    @if ($posts->isNotEmpty())
+        <section class="mx-auto max-w-6xl px-4 pt-16 sm:px-6">
+            <div class="flex flex-wrap items-end justify-between gap-4">
+                <h2 class="font-display text-[clamp(28px,3.4vw,40px)] font-extrabold">{{ __('Aktualności') }}</h2>
+                <a href="{{ route('posts.index') }}" class="k19-btn-ghost">{{ __('Zobacz wszystkie') }}</a>
+            </div>
+            <div class="mt-6 grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
+                @foreach ($posts as $post)<x-post-card :post="$post" />@endforeach
+            </div>
+        </section>
+    @endif
+
     {{-- Giełda pojazdów --}}
     <section class="mx-auto max-w-6xl px-4 pt-16 sm:px-6">
         <div class="flex flex-wrap items-end justify-between gap-4">
