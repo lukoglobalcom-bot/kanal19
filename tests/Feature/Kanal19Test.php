@@ -227,4 +227,17 @@ class Kanal19Test extends TestCase
         $this->get('/')->assertOk()->assertSee('lang="en"', false);
         $this->post('/jezyk', ['locale' => 'xx'])->assertSessionHasErrors('locale');
     }
+
+    public function test_without_sms_gateway_registration_skips_verification(): void
+    {
+        config(['services.smsapi.required' => false, 'services.smsapi.token' => null]);
+        $this->post('/rejestracja', [
+            'role' => 'driver', 'first_name' => 'Ewa', 'last_name' => 'Bez', 'experience' => '1-3',
+            'vehicles' => ['bus'], 'licences' => ['B'], 'phone' => '+48 501 000 111', 'locale' => 'pl',
+            'email' => 'ewa@example.com', 'password' => 'haslo1234', 'password_confirmation' => 'haslo1234', 'terms' => '1',
+        ])->assertRedirect(route('driver.profile'));
+        $this->get('/kierowca')->assertOk();
+        $this->get('/sprzedaj-pojazd')->assertOk();
+        $this->assertNull(\App\Models\User::where('email', 'ewa@example.com')->value('phone_verified_at'));
+    }
 }

@@ -184,6 +184,10 @@ class AuthController extends Controller
 
         Auth::login($user);
         $request->session()->regenerate();
+        if (! SmsSender::required()) {
+            return redirect($this->homeFor($user))->with('status', __('Konto założone. Witamy w Kanale 19!'));
+        }
+
         app(SmsSender::class)->sendCode($user);
 
         return redirect()->route('verify.show')->with('status', __('Wysłaliśmy kod SMS na numer :phone.', ['phone' => $user->phone]));

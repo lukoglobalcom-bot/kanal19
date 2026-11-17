@@ -68,7 +68,7 @@ class User extends Authenticatable
 
     public function hasVerifiedPhone(): bool
     {
-        return $this->phone_verified_at !== null;
+        return $this->phone_verified_at !== null || ! \App\Services\SmsSender::required();
     }
 
     public function driverProfile(): HasOne

@@ -99,7 +99,8 @@ class CompanyController extends Controller
 
         $query = DriverProfile::query()
             ->where('in_database', true)
-            ->whereHas('user', fn ($u) => $u->whereNotNull('phone_verified_at')->whereNull('blocked_at'));
+            ->whereHas('user', fn ($u) => $u->whereNull('blocked_at')
+                ->when(\App\Services\SmsSender::required(), fn ($q) => $q->whereNotNull('phone_verified_at')));
 
         foreach ($filters['uprawnienia'] ?? [] as $l) {
             $query->whereJsonContains('licences', $l);
