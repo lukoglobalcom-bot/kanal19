@@ -1,0 +1,60 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+/* Kolory i czcionki z logo kanal19.pl */
+@theme {
+    --font-sans: 'Barlow', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Barlow Condensed', 'Barlow', ui-sans-serif, sans-serif;
+    --color-k19-red: #C8221A;
+    --color-k19-red-dark: #9E1A13;
+    --color-k19-red-light: #FF6B5E;
+    --color-k19-ink: #16181D;
+    --color-k19-ink-2: #1F2229;
+    --color-k19-paper: #F4F2EE;
+    --color-k19-line: #E0E0D8;
+    --color-k19-muted: #4A4F5A;
+}
+
+@layer components {
+    /* Znaczek „19” z logo: czerwona tabliczka z białą ramką w środku */
+    .k19-badge {
+        @apply inline-flex items-center justify-center rounded-lg bg-k19-red font-display font-extrabold text-white leading-none;
+        box-shadow: inset 0 0 0 2px var(--color-k19-red), inset 0 0 0 4px #fff;
+    }
+
+    /* Zakładki menu jak tabliczki znaków */
+    .k19-sign {
+        @apply inline-flex min-h-10 items-center rounded-lg bg-k19-red px-3.5 font-display text-base font-bold uppercase tracking-wider text-white whitespace-nowrap no-underline;
+        box-shadow: inset 0 0 0 2px var(--color-k19-red), inset 0 0 0 4px #fff;
+    }
+    .k19-sign:hover { @apply bg-k19-red-dark; }
+    .k19-sign-sos {
+        @apply inline-flex min-h-10 items-center rounded-lg bg-white px-3.5 font-display text-base font-extrabold uppercase tracking-wider text-k19-red whitespace-nowrap no-underline;
+        box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 4px var(--color-k19-red);
+    }
+
+    .k19-btn, .k19-btn-red, .k19-btn-dark, .k19-btn-ghost {
+        @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-6 font-display text-lg font-bold no-underline transition;
+    }
+    .k19-btn-red { @apply bg-k19-red text-white hover:bg-k19-red-dark; }
+    .k19-btn-dark { @apply bg-k19-ink text-white hover:bg-black; }
+    .k19-btn-ghost { @apply border-2 border-k19-ink bg-white text-k19-ink hover:bg-k19-paper; }
+
+    .k19-card { @apply rounded-2xl border border-k19-line bg-white; }
+
+    .k19-label { @apply mb-1.5 block text-sm font-bold text-k19-ink; }
+    .k19-input {
+        @apply block min-h-12 w-full rounded-xl border border-[#CFCFC7] bg-[#FAFAF7] px-3.5 text-base text-k19-ink outline-none focus:border-k19-red focus:ring-2 focus:ring-k19-red/20;
+    }
+    .k19-error { @apply mt-1 text-sm font-semibold text-k19-red; }
+
+    .k19-pill {
+        @apply inline-flex min-h-10 cursor-pointer items-center rounded-full border border-[#CFCFC7] bg-white px-3.5 text-sm font-bold text-k19-ink select-none;
+    }
+    .k19-pill:has(input:checked) { @apply border-k19-red bg-k19-red text-white; }
+    .k19-pill input { @apply sr-only; }
+
+    .k19-tag { @apply inline-flex rounded-full bg-[#F1F1EC] px-3 py-1 text-[13px] font-semibold text-[#3A3F4A]; }
+}
