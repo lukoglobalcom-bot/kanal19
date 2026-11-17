@@ -93,4 +93,13 @@ class Stage3Test extends TestCase
         $this->get('/aktualnosci/'.$draft->id)->assertNotFound();
         $this->withSession(['locale' => 'pl'])->get('/aktualnosci?kategoria=mandaty')->assertSee('Jak odwołać');
     }
+
+    public function test_app_calculator_and_pwa_files(): void
+    {
+        $this->get('/app')->assertOk()->assertSee('tel:112', false)->assertSee(route('map.sos'), false);
+        $this->get('/kalkulator')->assertOk()->assertSee('561/2006');
+        $this->get('/')->assertSee('manifest.webmanifest', false)->assertSee('serviceWorker', false);
+        $this->assertFileExists(public_path('sw.js'));
+        $this->assertJson(file_get_contents(public_path('manifest.webmanifest')));
+    }
 }
