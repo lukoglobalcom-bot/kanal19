@@ -8,12 +8,24 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * Zgłoszenie na mapie kierowców: parking (wolne miejsca), paliwo (cena) albo SOS (wezwanie pomocy).
+ * Zgłoszenie na mapie kierowców: parking (wolne miejsca), paliwo (cena), SOS (wezwanie pomocy)
+ * albo utrudnienie na drodze (road) – zamknięcia, niskie wiadukty i limity masy omija planer trasy.
  */
 class MapReport extends Model
 {
     /** Ile godzin zgłoszenie jest widoczne. */
-    public const TTL_HOURS = ['parking' => 6, 'fuel' => 168, 'sos' => 6];
+    public const TTL_HOURS = ['parking' => 6, 'fuel' => 168, 'sos' => 6, 'road' => 24];
+
+    /** Rodzaje utrudnień: nazwa, czas widoczności (h), czy planer trasy ma omijać to miejsce. */
+    public const ROAD_PROBLEMS = [
+        'closure' => ['label' => 'Droga zamknięta', 'ttl' => 48, 'avoid' => true],
+        'roadwork' => ['label' => 'Roboty drogowe', 'ttl' => 72, 'avoid' => false],
+        'accident' => ['label' => 'Wypadek', 'ttl' => 3, 'avoid' => false],
+        'jam' => ['label' => 'Korek', 'ttl' => 2, 'avoid' => false],
+        'low_bridge' => ['label' => 'Niski wiadukt', 'ttl' => 720, 'avoid' => true],
+        'weight_limit' => ['label' => 'Ograniczenie masy', 'ttl' => 720, 'avoid' => true],
+        'truck_ban' => ['label' => 'Zakaz dla ciężarówek', 'ttl' => 720, 'avoid' => true],
+    ];
 
     public const SOS_PROBLEMS = [
         'vehicle' => 'Problem z pojazdem',
@@ -43,6 +55,35 @@ class MapReport extends Model
             'lng' => 'float',
             'expires_at' => 'datetime',
         ];
+    }
+
+    public static function ttlFor(string $kind, array $data = []): int
+    {
+        if ($kind === 'road') {
+            return self::ROAD_PROBLEMS[$data['problem'] ?? '']['ttl'] ?? self::TTL_HOURS['road'];
+        }
+
+        return self::TTL_HOURS[$kind];
+    }
+
+    /**
+     * Czy pojazd o podanych wymiarach musi ominąć to utrudnienie.
+     * Niski wiadukt / limit masy omijamy, gdy pojazd przekracza limit albo limit nie jest znany.
+     */
+    public function blocks(float $heightM, float $weightT): bool
+    {
+        if ($this->kind !== 'road') {
+            return false;
+        }
+        $problem = $this->data['problem'] ?? '';
+        $limit = isset($this->data['limit']) ? (float) $this->data['limit'] : null;
+
+        return match ($problem) {
+            'closure', 'truck_ban' => true,
+            'low_bridge' => $limit === null || $heightM >= $limit,
+            'weight_limit' => $limit === null || $weightT > $limit,
+            default => false,
+        };
     }
 
     public static function currencyFor(string $country): string

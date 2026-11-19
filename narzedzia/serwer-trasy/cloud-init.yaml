@@ -1,0 +1,54 @@
+#cloud-config
+# Kanał 19 – serwer tras (Valhalla + OpenStreetMap) za HTTPS (Caddy).
+# Wklej w Hetzner Cloud → Tworzenie serwera → „Cloud config”. Ubuntu 24.04, min. 16 GB RAM.
+# Przed wklejeniem zamień __KLUCZ__ na tajny klucz (ten sam trafia do ROUTING_KEY w .env portalu).
+# Mapy: Polska, kraje sąsiednie, Benelux, Austria, Ukraina. Pierwsza budowa trwa ok. 1–3 h.
+
+package_update: true
+package_upgrade: true
+packages: [docker.io, docker-compose-v2, caddy, ufw, unattended-upgrades]
+
+write_files:
+  - path: /opt/k19/docker-compose.yml
+    content: |
+      services:
+        valhalla:
+          image: ghcr.io/valhalla/valhalla-scripted:latest
+          restart: unless-stopped
+          ports: ["127.0.0.1:8002:8002"]
+          volumes: ["./valhalla:/custom_files"]
+          environment:
+            tile_urls: >-
+              https://download.geofabrik.de/europe/poland-latest.osm.pbf
+              https://download.geofabrik.de/europe/germany-latest.osm.pbf
+              https://download.geofabrik.de/europe/czech-republic-latest.osm.pbf
+              https://download.geofabrik.de/europe/slovakia-latest.osm.pbf
+              https://download.geofabrik.de/europe/lithuania-latest.osm.pbf
+              https://download.geofabrik.de/europe/austria-latest.osm.pbf
+              https://download.geofabrik.de/europe/netherlands-latest.osm.pbf
+              https://download.geofabrik.de/europe/belgium-latest.osm.pbf
+              https://download.geofabrik.de/europe/ukraine-latest.osm.pbf
+            use_tiles_ignore_pbf: "True"
+            build_elevation: "False"
+            build_admins: "True"
+            build_time_zones: "True"
+            server_threads: "4"
+  - path: /etc/caddy/Caddyfile
+    content: |
+      trasy.kanal19.pl {
+        @portal header X-K19-Key "__KLUCZ__"
+        handle @portal {
+          reverse_proxy 127.0.0.1:8002
+        }
+        respond "Kanal 19" 403
+      }
+
+runcmd:
+  - ufw allow 22/tcp
+  - ufw allow 80/tcp
+  - ufw allow 443/tcp
+  - ufw --force enable
+  - systemctl enable --now docker
+  - mkdir -p /opt/k19/valhalla
+  - cd /opt/k19 && docker compose up -d
+  - systemctl restart caddy

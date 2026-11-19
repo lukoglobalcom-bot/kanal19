@@ -54,6 +54,9 @@ class MapController extends Controller
                 $out['helping'] = in_array($r->id, $helping, true);
                 $out['phone'] = $trusted ? $r->author?->phone : null;
                 $out['who'] = $trusted ? $r->author?->name : null;
+            } elseif ($r->kind === 'road') {
+                $out['data'] = $data;
+                $out['problem_label'] = __(MapReport::ROAD_PROBLEMS[$data['problem'] ?? '']['label'] ?? '');
             } else {
                 $out['data'] = $data;
             }
@@ -65,7 +68,7 @@ class MapController extends Controller
     public function store(Request $request): RedirectResponse|JsonResponse
     {
         $base = $request->validate([
-            'kind' => ['required', Rule::in(['parking', 'fuel', 'sos'])],
+            'kind' => ['required', Rule::in(['parking', 'fuel', 'sos', 'road'])],
             'lat' => ['required', 'numeric', 'between:-90,90'],
             'lng' => ['required', 'numeric', 'between:-180,180'],
             'name' => ['nullable', 'string', 'max:120'],
@@ -88,7 +91,19 @@ class MapController extends Controller
                 'problem' => ['required', Rule::in(array_keys(MapReport::SOS_PROBLEMS))],
                 'message' => ['nullable', 'string', 'max:300'],
             ]),
+            'road' => $request->validate([
+                'problem' => ['required', Rule::in(array_keys(MapReport::ROAD_PROBLEMS))],
+                'road' => ['nullable', 'string', 'max:12', 'regex:/^[A-Za-z0-9 .\-]+$/'],
+                'limit' => ['nullable', 'numeric', 'min:1', 'max:60'],
+                'note' => ['nullable', 'string', 'max:200'],
+            ]),
         };
+        if ($base['kind'] === 'road') {
+            $data['road'] = isset($data['road']) && $data['road'] !== '' ? strtoupper(trim($data['road'])) : null;
+            if (! in_array($data['problem'], ['low_bridge', 'weight_limit'], true)) {
+                unset($data['limit']);
+            }
+        }
 
         if ($base['kind'] === 'parking' && collect(['free_truck', 'free_bus', 'free_car'])->every(fn ($k) => ($data[$k] ?? null) === null)) {
             return $this->fail($request, 'free_truck', __('Podaj liczbę wolnych miejsc przynajmniej dla jednego rodzaju pojazdu.'));
@@ -102,7 +117,7 @@ class MapController extends Controller
 
         $report = new MapReport($base + ['data' => $data]);
         $report->user_id = $user->id;
-        $report->expires_at = now()->addHours(MapReport::TTL_HOURS[$base['kind']]);
+        $report->expires_at = now()->addHours(MapReport::ttlFor($base['kind'], $data));
         $report->save();
 
         $msg = match ($base['kind']) {
