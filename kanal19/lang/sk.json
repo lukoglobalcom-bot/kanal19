@@ -1135,5 +1135,14 @@
   "Tak, jest": "Áno, je",
   "Już nie ma": "Už tam nie je",
   "Dziękujemy za potwierdzenie!": "Ďakujeme za potvrdenie!",
-  "Potwierdzone przez kierowców:": "Potvrdené vodičmi:"
+  "Potwierdzone przez kierowców:": "Potvrdené vodičmi:",
+  "Dostaniesz powiadomienie, gdy kierowca niedaleko Ciebie wezwie pomoc.": "Dostanete upozornenie, keď vodič vo vašom okolí zavolá o pomoc.",
+  "Na iPhonie: dodaj Kanał 19 do ekranu początkowego (Udostępnij → Do ekranu początk.), potem włącz powiadomienia.": "Na iPhone: pridajte Kanał 19 na plochu (Zdieľať → Pridať na plochu), potom zapnite upozornenia.",
+  "Nie udało się włączyć powiadomień.": "Upozornenia sa nepodarilo zapnúť.",
+  "Powiadomienia SOS w pobliżu": "Upozornenia SOS v okolí",
+  "Powiadomienia SOS wyłączone.": "Upozornenia SOS vypnuté.",
+  "Powiadomienia SOS włączone.": "Upozornenia SOS zapnuté.",
+  "Powiadomienia są zablokowane w ustawieniach telefonu.": "Upozornenia sú zablokované v nastaveniach telefónu.",
+  "Promień": "Okruh",
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Zapnuté – upozorníme vás na SOS v okruhu"
 }

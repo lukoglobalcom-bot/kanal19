@@ -1135,5 +1135,14 @@
   "Tak, jest": "Jah, on",
   "Już nie ma": "Enam pole",
   "Dziękujemy za potwierdzenie!": "Aitäh kinnitamast!",
-  "Potwierdzone przez kierowców:": "Juhid on kinnitanud:"
+  "Potwierdzone przez kierowców:": "Juhid on kinnitanud:",
+  "Dostaniesz powiadomienie, gdy kierowca niedaleko Ciebie wezwie pomoc.": "Saad teate, kui sinu lähedal olev juht abi kutsub.",
+  "Na iPhonie: dodaj Kanał 19 do ekranu początkowego (Udostępnij → Do ekranu początk.), potem włącz powiadomienia.": "iPhone'is: lisa Kanał 19 avaekraanile (Jaga → Lisa avaekraanile), seejärel lülita teavitused sisse.",
+  "Nie udało się włączyć powiadomień.": "Teavitusi ei õnnestunud sisse lülitada.",
+  "Powiadomienia SOS w pobliżu": "SOS-teavitused lähedal",
+  "Powiadomienia SOS wyłączone.": "SOS-teavitused välja lülitatud.",
+  "Powiadomienia SOS włączone.": "SOS-teavitused sisse lülitatud.",
+  "Powiadomienia są zablokowane w ustawieniach telefonu.": "Teavitused on telefoni seadetes blokeeritud.",
+  "Promień": "Raadius",
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Sees – hoiatame SOS-ist raadiuses"
 }

@@ -86,6 +86,7 @@
                         <a href="{{ route('login') }}" class="k19-btn-dark mt-3">{{ __('Zaloguj się') }}</a>
                     </div>
                 @endif
+                <x-push-toggle />
                 <p class="text-xs text-k19-muted">{{ __('Zgłoszenia parkingów znikają po 6 godzinach, ceny paliwa po 7 dniach, SOS po 6 godzinach.') }} {{ __('Utrudnienia znikają same: korek po 2 h, wypadek po 3 h, zamknięcie po 2 dniach, wiadukty i zakazy po 30 dniach.') }}</p>
             </aside>
         </div>
@@ -152,10 +153,14 @@
             return box;
         }
 
+        let focusId = new URLSearchParams(location.search).get('sos'); // z powiadomienia SOS
         async function load() {
             const data = await fetch(@js(route('map.data')), {headers: {'Accept': 'application/json'}}).then(r => r.json()).catch(() => []);
             Object.values(layers).forEach(l => l.clearLayers());
-            data.forEach(r => L.marker([r.lat, r.lng], {icon: icon(r.kind)}).bindPopup(() => popup(r)).addTo(layers[r.kind]));
+            data.forEach(r => {
+                const m = L.marker([r.lat, r.lng], {icon: icon(r.kind)}).bindPopup(() => popup(r)).addTo(layers[r.kind]);
+                if (String(r.id) === focusId) { map.setView([r.lat, r.lng], 12); m.openPopup(); focusId = null; }
+            });
         }
         load(); setInterval(load, 60000);
 

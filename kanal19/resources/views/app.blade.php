@@ -31,6 +31,7 @@
             <p class="mt-1 text-k19-muted">{{ __('Ikona na ekranie telefonu, pełny ekran i szybki dostęp do SOS.') }}</p>
             <button type="button" class="k19-btn-red mt-3">{{ __('Zainstaluj') }}</button>
         </div>
+        <x-push-toggle class="mt-6" />
         <p id="k19-ios" class="k19-card mt-6 hidden p-5 text-k19-muted">{{ __('iPhone: w Safari stuknij „Udostępnij”, a potem „Do ekranu początkowego”.') }}</p>
     </div>
 

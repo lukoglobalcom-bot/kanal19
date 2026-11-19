@@ -1135,5 +1135,14 @@
   "Tak, jest": "Igen, ott van",
   "Już nie ma": "Már nincs",
   "Dziękujemy za potwierdzenie!": "Köszönjük a megerősítést!",
-  "Potwierdzone przez kierowców:": "Sofőrök megerősítették:"
+  "Potwierdzone przez kierowców:": "Sofőrök megerősítették:",
+  "Dostaniesz powiadomienie, gdy kierowca niedaleko Ciebie wezwie pomoc.": "Értesítést kapsz, ha a közeledben egy sofőr segítséget kér.",
+  "Na iPhonie: dodaj Kanał 19 do ekranu początkowego (Udostępnij → Do ekranu początk.), potem włącz powiadomienia.": "iPhone-on: add hozzá a Kanał 19-et a Főképernyőhöz (Megosztás → Főképernyőhöz adás), majd kapcsold be az értesítéseket.",
+  "Nie udało się włączyć powiadomień.": "Nem sikerült bekapcsolni az értesítéseket.",
+  "Powiadomienia SOS w pobliżu": "SOS-értesítések a közelben",
+  "Powiadomienia SOS wyłączone.": "SOS-értesítések kikapcsolva.",
+  "Powiadomienia SOS włączone.": "SOS-értesítések bekapcsolva.",
+  "Powiadomienia są zablokowane w ustawieniach telefonu.": "Az értesítések le vannak tiltva a telefon beállításaiban.",
+  "Promień": "Sugár",
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Bekapcsolva – figyelmeztetünk az SOS-ekre ebben a sugárban:"
 }

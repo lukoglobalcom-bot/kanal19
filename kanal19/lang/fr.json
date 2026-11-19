@@ -1135,5 +1135,14 @@
   "Tak, jest": "Oui, toujours là",
   "Już nie ma": "Plus là",
   "Dziękujemy za potwierdzenie!": "Merci pour la confirmation !",
-  "Potwierdzone przez kierowców:": "Confirmé par des chauffeurs :"
+  "Potwierdzone przez kierowców:": "Confirmé par des chauffeurs :",
+  "Dostaniesz powiadomienie, gdy kierowca niedaleko Ciebie wezwie pomoc.": "Vous serez averti quand un chauffeur près de vous appelle à l'aide.",
+  "Na iPhonie: dodaj Kanał 19 do ekranu początkowego (Udostępnij → Do ekranu początk.), potem włącz powiadomienia.": "Sur iPhone : ajoutez Kanał 19 à l'écran d'accueil (Partager → Sur l'écran d'accueil), puis activez les notifications.",
+  "Nie udało się włączyć powiadomień.": "Impossible d'activer les notifications.",
+  "Powiadomienia SOS w pobliżu": "Alertes SOS à proximité",
+  "Powiadomienia SOS wyłączone.": "Alertes SOS désactivées.",
+  "Powiadomienia SOS włączone.": "Alertes SOS activées.",
+  "Powiadomienia są zablokowane w ustawieniach telefonu.": "Les notifications sont bloquées dans les réglages du téléphone.",
+  "Promień": "Rayon",
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Activé – nous vous alertons des SOS dans un rayon de"
 }

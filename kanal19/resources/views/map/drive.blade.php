@@ -92,6 +92,8 @@
     </nav>
 </div>
 
+<x-push-toggle dark class="hidden" />
+<script>if ('serviceWorker' in navigator) navigator.serviceWorker.register(@js(asset('sw.js'))).catch(() => {});</script>
 <script type="module">
 (() => {
     const T = @js([
@@ -213,7 +215,7 @@
     });
 
     // GPS
-    let country = null, countryAt = null;
+    let country = null, countryAt = null, lastPush = 0;
     async function updateCountry() {
         if (!pos || (countryAt && dist(countryAt, pos) < 20000)) return;
         countryAt = {...pos};
@@ -235,6 +237,7 @@
         if (follow) map.panTo([pos.lat, pos.lng], {animate: true});
         $('k19-speed').textContent = now.speed != null ? Math.round(now.speed * 3.6) : '–';
         checkAhead(); checkPassed(); updateCountry();
+        if (!lastPush || now.t - lastPush > 600000) { lastPush = now.t; window.K19PushLocate?.(now.lat, now.lng); }
     }, () => { if (!pos) status(T.noGps); }, {enableHighAccuracy: true, maximumAge: 2000, timeout: 20000});
 
     // Szybkie zgłoszenia

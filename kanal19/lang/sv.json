@@ -1135,5 +1135,14 @@
   "Tak, jest": "Ja, finns kvar",
   "Już nie ma": "Borta",
   "Dziękujemy za potwierdzenie!": "Tack för bekräftelsen!",
-  "Potwierdzone przez kierowców:": "Bekräftat av förare:"
+  "Potwierdzone przez kierowców:": "Bekräftat av förare:",
+  "Dostaniesz powiadomienie, gdy kierowca niedaleko Ciebie wezwie pomoc.": "Du får en avisering när en förare nära dig ber om hjälp.",
+  "Na iPhonie: dodaj Kanał 19 do ekranu początkowego (Udostępnij → Do ekranu początk.), potem włącz powiadomienia.": "På iPhone: lägg till Kanał 19 på hemskärmen (Dela → Lägg till på hemskärmen) och slå sedan på aviseringar.",
+  "Nie udało się włączyć powiadomień.": "Aviseringar kunde inte slås på.",
+  "Powiadomienia SOS w pobliżu": "SOS-aviseringar i närheten",
+  "Powiadomienia SOS wyłączone.": "SOS-aviseringar avstängda.",
+  "Powiadomienia SOS włączone.": "SOS-aviseringar påslagna.",
+  "Powiadomienia są zablokowane w ustawieniach telefonu.": "Aviseringar är blockerade i telefonens inställningar.",
+  "Promień": "Radie",
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "På – vi varnar dig för SOS inom"
 }

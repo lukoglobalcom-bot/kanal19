@@ -1135,5 +1135,14 @@
   "Tak, jest": "Taip, yra",
   "Już nie ma": "Jau nebėra",
   "Dziękujemy za potwierdzenie!": "Ačiū už patvirtinimą!",
-  "Potwierdzone przez kierowców:": "Patvirtino vairuotojai:"
+  "Potwierdzone przez kierowców:": "Patvirtino vairuotojai:",
+  "Dostaniesz powiadomienie, gdy kierowca niedaleko Ciebie wezwie pomoc.": "Gausite pranešimą, kai netoliese esantis vairuotojas kvies pagalbą.",
+  "Na iPhonie: dodaj Kanał 19 do ekranu początkowego (Udostępnij → Do ekranu początk.), potem włącz powiadomienia.": "iPhone: pridėkite Kanał 19 prie pradžios ekrano (Bendrinti → Pridėti prie pradžios ekrano), tada įjunkite pranešimus.",
+  "Nie udało się włączyć powiadomień.": "Nepavyko įjungti pranešimų.",
+  "Powiadomienia SOS w pobliżu": "SOS pranešimai netoliese",
+  "Powiadomienia SOS wyłączone.": "SOS pranešimai išjungti.",
+  "Powiadomienia SOS włączone.": "SOS pranešimai įjungti.",
+  "Powiadomienia są zablokowane w ustawieniach telefonu.": "Pranešimai užblokuoti telefono nustatymuose.",
+  "Promień": "Spindulys",
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Įjungta – įspėsime apie SOS spinduliu"
 }

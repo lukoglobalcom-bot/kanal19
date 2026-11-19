@@ -1135,5 +1135,14 @@
   "Tak, jest": "Ja, stadig der",
   "Już nie ma": "Væk",
   "Dziękujemy za potwierdzenie!": "Tak for bekræftelsen!",
-  "Potwierdzone przez kierowców:": "Bekræftet af chauffører:"
+  "Potwierdzone przez kierowców:": "Bekræftet af chauffører:",
+  "Dostaniesz powiadomienie, gdy kierowca niedaleko Ciebie wezwie pomoc.": "Du får besked, når en chauffør i nærheden beder om hjælp.",
+  "Na iPhonie: dodaj Kanał 19 do ekranu początkowego (Udostępnij → Do ekranu początk.), potem włącz powiadomienia.": "På iPhone: føj Kanał 19 til hjemmeskærmen (Del → Føj til hjemmeskærm), og slå derefter notifikationer til.",
+  "Nie udało się włączyć powiadomień.": "Notifikationer kunne ikke slås til.",
+  "Powiadomienia SOS w pobliżu": "SOS-notifikationer i nærheden",
+  "Powiadomienia SOS wyłączone.": "SOS-notifikationer slået fra.",
+  "Powiadomienia SOS włączone.": "SOS-notifikationer slået til.",
+  "Powiadomienia są zablokowane w ustawieniach telefonu.": "Notifikationer er blokeret i telefonens indstillinger.",
+  "Promień": "Radius",
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Til – vi advarer dig om SOS inden for"
 }

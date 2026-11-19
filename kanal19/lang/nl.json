@@ -1135,5 +1135,14 @@
   "Tak, jest": "Ja, nog daar",
   "Już nie ma": "Niet meer",
   "Dziękujemy za potwierdzenie!": "Bedankt voor het bevestigen!",
-  "Potwierdzone przez kierowców:": "Bevestigd door chauffeurs:"
+  "Potwierdzone przez kierowców:": "Bevestigd door chauffeurs:",
+  "Dostaniesz powiadomienie, gdy kierowca niedaleko Ciebie wezwie pomoc.": "Je krijgt een melding als een chauffeur bij jou in de buurt om hulp vraagt.",
+  "Na iPhonie: dodaj Kanał 19 do ekranu początkowego (Udostępnij → Do ekranu początk.), potem włącz powiadomienia.": "Op iPhone: zet Kanał 19 op het beginscherm (Deel → Zet op beginscherm) en zet daarna meldingen aan.",
+  "Nie udało się włączyć powiadomień.": "Meldingen konden niet worden aangezet.",
+  "Powiadomienia SOS w pobliżu": "SOS-meldingen in de buurt",
+  "Powiadomienia SOS wyłączone.": "SOS-meldingen uitgezet.",
+  "Powiadomienia SOS włączone.": "SOS-meldingen aangezet.",
+  "Powiadomienia są zablokowane w ustawieniach telefonu.": "Meldingen zijn geblokkeerd in de telefooninstellingen.",
+  "Promień": "Straal",
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Aan – we waarschuwen je bij SOS binnen"
 }

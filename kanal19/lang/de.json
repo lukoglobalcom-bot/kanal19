@@ -1135,5 +1135,14 @@
   "Tak, jest": "Ja, noch da",
   "Już nie ma": "Nicht mehr da",
   "Dziękujemy za potwierdzenie!": "Danke für die Bestätigung!",
-  "Potwierdzone przez kierowców:": "Von Fahrern bestätigt:"
+  "Potwierdzone przez kierowców:": "Von Fahrern bestätigt:",
+  "Dostaniesz powiadomienie, gdy kierowca niedaleko Ciebie wezwie pomoc.": "Du wirst benachrichtigt, wenn ein Fahrer in deiner Nähe Hilfe ruft.",
+  "Na iPhonie: dodaj Kanał 19 do ekranu początkowego (Udostępnij → Do ekranu początk.), potem włącz powiadomienia.": "Auf dem iPhone: Kanał 19 zum Home-Bildschirm hinzufügen (Teilen → Zum Home-Bildschirm), dann Benachrichtigungen einschalten.",
+  "Nie udało się włączyć powiadomień.": "Benachrichtigungen konnten nicht eingeschaltet werden.",
+  "Powiadomienia SOS w pobliżu": "SOS-Benachrichtigungen in der Nähe",
+  "Powiadomienia SOS wyłączone.": "SOS-Benachrichtigungen ausgeschaltet.",
+  "Powiadomienia SOS włączone.": "SOS-Benachrichtigungen eingeschaltet.",
+  "Powiadomienia są zablokowane w ustawieniach telefonu.": "Benachrichtigungen sind in den Telefoneinstellungen blockiert.",
+  "Promień": "Umkreis",
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Ein – wir warnen dich vor SOS im Umkreis von"
 }

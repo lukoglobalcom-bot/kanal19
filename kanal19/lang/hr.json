@@ -1135,5 +1135,14 @@
   "Tak, jest": "Da, još je",
   "Już nie ma": "Više nije",
   "Dziękujemy za potwierdzenie!": "Hvala na potvrdi!",
-  "Potwierdzone przez kierowców:": "Potvrdili vozači:"
+  "Potwierdzone przez kierowców:": "Potvrdili vozači:",
+  "Dostaniesz powiadomienie, gdy kierowca niedaleko Ciebie wezwie pomoc.": "Dobit ćete obavijest kad vozač u blizini zatraži pomoć.",
+  "Na iPhonie: dodaj Kanał 19 do ekranu początkowego (Udostępnij → Do ekranu początk.), potem włącz powiadomienia.": "Na iPhoneu: dodajte Kanał 19 na početni zaslon (Dijeli → Dodaj na početni zaslon), zatim uključite obavijesti.",
+  "Nie udało się włączyć powiadomień.": "Obavijesti nije bilo moguće uključiti.",
+  "Powiadomienia SOS w pobliżu": "SOS obavijesti u blizini",
+  "Powiadomienia SOS wyłączone.": "SOS obavijesti isključene.",
+  "Powiadomienia SOS włączone.": "SOS obavijesti uključene.",
+  "Powiadomienia są zablokowane w ustawieniach telefonu.": "Obavijesti su blokirane u postavkama telefona.",
+  "Promień": "Polumjer",
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Uključeno – upozorit ćemo vas na SOS u krugu od"
 }
