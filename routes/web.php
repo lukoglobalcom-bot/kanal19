@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdvertiserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CbController;
+use App\Http\Controllers\PushController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DriverController;
@@ -34,6 +35,10 @@ Route::post('/trasa/wyznacz', [RouteController::class, 'plan'])->middleware('thr
 Route::middleware(['auth', 'phone'])->group(function () {
     Route::post('/mapa/zgloszenia', [MapController::class, 'store'])->middleware('throttle:15,1')->name('map.store');
     Route::post('/mapa/sos/{report}/pomoc', [MapController::class, 'help'])->middleware('throttle:30,1')->name('map.help');
+    Route::get('/powiadomienia/klucz', [PushController::class, 'key'])->name('push.key');
+    Route::post('/powiadomienia', [PushController::class, 'subscribe'])->middleware('throttle:10,1')->name('push.subscribe');
+    Route::post('/powiadomienia/pozycja', [PushController::class, 'locate'])->middleware('throttle:30,1')->name('push.locate');
+    Route::delete('/powiadomienia', [PushController::class, 'unsubscribe'])->name('push.unsubscribe');
     Route::post('/mapa/zgloszenia/{report}/glos', [MapController::class, 'vote'])->middleware('throttle:30,1')->name('map.vote');
     Route::post('/mapa/zgloszenia/{report}/zamknij', [MapController::class, 'close'])->name('map.close');
 });

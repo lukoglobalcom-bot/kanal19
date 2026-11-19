@@ -1,5 +1,5 @@
 // Kanał 19 – service worker: aplikacja działa jak natywna, a bez internetu pokazuje stronę z numerem 112.
-const CACHE = 'k19-v1';
+const CACHE = 'k19-v2';
 const OFFLINE = '/offline.html';
 
 self.addEventListener('install', (e) => {
@@ -30,4 +30,24 @@ self.addEventListener('fetch', (e) => {
       return res;
     })));
   }
+});
+
+// Powiadomienia SOS w pobliżu
+self.addEventListener('push', (e) => {
+  let d = {};
+  try { d = e.data ? e.data.json() : {}; } catch (err) { d = {title: 'Kanał 19', body: e.data && e.data.text()}; }
+  e.waitUntil(self.registration.showNotification(d.title || 'Kanał 19', {
+    body: d.body || '', tag: d.tag, renotify: true, requireInteraction: true,
+    icon: '/images/icon-192.png', badge: '/images/icon-192.png', vibrate: [300, 150, 300, 150, 300],
+    data: {url: d.url || '/mapa'},
+  }));
+});
+
+self.addEventListener('notificationclick', (e) => {
+  e.notification.close();
+  const url = (e.notification.data && e.notification.data.url) || '/mapa';
+  e.waitUntil(self.clients.matchAll({type: 'window', includeUncontrolled: true}).then((list) => {
+    for (const c of list) { if ('focus' in c) { c.navigate(url); return c.focus(); } }
+    return self.clients.openWindow(url);
+  }));
 });

@@ -49,6 +49,11 @@ return [
         'secret' => env('LIVEKIT_SECRET'),
     ],
 
+    // Powiadomienia push (SOS w pobliżu). W testach wyłączone.
+    'push' => [
+        'enabled' => env('PUSH_ENABLED', true),
+    ],
+
     // Wyszukiwanie adresów (Nominatim – maks. 1 zapytanie/s, wyniki w cache)
     'geocoding' => [
         'url' => env('GEOCODING_URL', 'https://nominatim.openstreetmap.org'),

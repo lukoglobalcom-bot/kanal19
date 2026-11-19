@@ -1135,5 +1135,14 @@
   "Tak, jest": "Yes, still there",
   "Już nie ma": "Gone",
   "Dziękujemy za potwierdzenie!": "Thanks for confirming!",
-  "Potwierdzone przez kierowców:": "Confirmed by drivers:"
+  "Potwierdzone przez kierowców:": "Confirmed by drivers:",
+  "Dostaniesz powiadomienie, gdy kierowca niedaleko Ciebie wezwie pomoc.": "You'll get a notification when a driver near you calls for help.",
+  "Na iPhonie: dodaj Kanał 19 do ekranu początkowego (Udostępnij → Do ekranu początk.), potem włącz powiadomienia.": "On iPhone: add Kanał 19 to your Home Screen (Share → Add to Home Screen), then turn on notifications.",
+  "Nie udało się włączyć powiadomień.": "Could not turn on notifications.",
+  "Powiadomienia SOS w pobliżu": "Nearby SOS notifications",
+  "Powiadomienia SOS wyłączone.": "SOS notifications turned off.",
+  "Powiadomienia SOS włączone.": "SOS notifications turned on.",
+  "Powiadomienia są zablokowane w ustawieniach telefonu.": "Notifications are blocked in your phone settings.",
+  "Promień": "Radius",
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "On – we'll alert you about SOS within"
 }

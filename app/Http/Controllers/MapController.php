@@ -122,6 +122,10 @@ class MapController extends Controller
         $report->expires_at = now()->addHours(MapReport::ttlFor($base['kind'], $data));
         $report->save();
 
+        if ($base['kind'] === 'sos') {
+            \App\Services\Push::sos($report);
+        }
+
         $msg = match ($base['kind']) {
             'sos' => __('Wezwanie SOS wysłane. Kierowcy w okolicy widzą je na mapie.'),
             default => __('Dziękujemy! Zgłoszenie jest na mapie.'),

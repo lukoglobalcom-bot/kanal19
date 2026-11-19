@@ -1135,5 +1135,14 @@
   "Tak, jest": "Tá, fós ann",
   "Już nie ma": "Imithe",
   "Dziękujemy za potwierdzenie!": "Go raibh maith agat as é a dhearbhú!",
-  "Potwierdzone przez kierowców:": "Dearbhaithe ag tiománaithe:"
+  "Potwierdzone przez kierowców:": "Dearbhaithe ag tiománaithe:",
+  "Dostaniesz powiadomienie, gdy kierowca niedaleko Ciebie wezwie pomoc.": "Gheobhaidh tú fógra nuair a iarrann tiománaí in aice leat cabhair.",
+  "Na iPhonie: dodaj Kanał 19 do ekranu początkowego (Udostępnij → Do ekranu początk.), potem włącz powiadomienia.": "Ar iPhone: cuir Kanał 19 leis an Scáileán Baile (Comhroinn → Cuir leis an Scáileán Baile), ansin cas fógraí air.",
+  "Nie udało się włączyć powiadomień.": "Níorbh fhéidir fógraí a chasadh air.",
+  "Powiadomienia SOS w pobliżu": "Fógraí SOS in aice láimhe",
+  "Powiadomienia SOS wyłączone.": "Fógraí SOS múchta.",
+  "Powiadomienia SOS włączone.": "Fógraí SOS casta air.",
+  "Powiadomienia są zablokowane w ustawieniach telefonu.": "Tá fógraí bactha i socruithe an fhóin.",
+  "Promień": "Ga",
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Ar siúl – tabharfaimid rabhadh duit faoi SOS laistigh de"
 }

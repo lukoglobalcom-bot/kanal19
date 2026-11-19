@@ -1135,5 +1135,14 @@
   "Tak, jest": "Kyllä, on",
   "Już nie ma": "Ei enää",
   "Dziękujemy za potwierdzenie!": "Kiitos vahvistuksesta!",
-  "Potwierdzone przez kierowców:": "Kuljettajien vahvistama:"
+  "Potwierdzone przez kierowców:": "Kuljettajien vahvistama:",
+  "Dostaniesz powiadomienie, gdy kierowca niedaleko Ciebie wezwie pomoc.": "Saat ilmoituksen, kun lähelläsi oleva kuljettaja pyytää apua.",
+  "Na iPhonie: dodaj Kanał 19 do ekranu początkowego (Udostępnij → Do ekranu początk.), potem włącz powiadomienia.": "iPhonessa: lisää Kanał 19 kotivalikkoon (Jaa → Lisää Koti-valikkoon) ja ota ilmoitukset käyttöön.",
+  "Nie udało się włączyć powiadomień.": "Ilmoituksia ei voitu ottaa käyttöön.",
+  "Powiadomienia SOS w pobliżu": "SOS-ilmoitukset lähistöltä",
+  "Powiadomienia SOS wyłączone.": "SOS-ilmoitukset pois päältä.",
+  "Powiadomienia SOS włączone.": "SOS-ilmoitukset päällä.",
+  "Powiadomienia są zablokowane w ustawieniach telefonu.": "Ilmoitukset on estetty puhelimen asetuksissa.",
+  "Promień": "Säde",
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Päällä – varoitamme SOS-hälytyksistä säteellä"
 }

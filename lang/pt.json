@@ -1135,5 +1135,14 @@
   "Tak, jest": "Sim, ainda lá",
   "Już nie ma": "Já não está",
   "Dziękujemy za potwierdzenie!": "Obrigado por confirmar!",
-  "Potwierdzone przez kierowców:": "Confirmado por motoristas:"
+  "Potwierdzone przez kierowców:": "Confirmado por motoristas:",
+  "Dostaniesz powiadomienie, gdy kierowca niedaleko Ciebie wezwie pomoc.": "Receberá uma notificação quando um motorista perto de si pedir ajuda.",
+  "Na iPhonie: dodaj Kanał 19 do ekranu początkowego (Udostępnij → Do ekranu początk.), potem włącz powiadomienia.": "No iPhone: adicione o Kanał 19 ao ecrã principal (Partilhar → Adicionar ao ecrã principal) e ative as notificações.",
+  "Nie udało się włączyć powiadomień.": "Não foi possível ativar as notificações.",
+  "Powiadomienia SOS w pobliżu": "Alertas SOS nas proximidades",
+  "Powiadomienia SOS wyłączone.": "Alertas SOS desativados.",
+  "Powiadomienia SOS włączone.": "Alertas SOS ativados.",
+  "Powiadomienia są zablokowane w ustawieniach telefonu.": "As notificações estão bloqueadas nas definições do telemóvel.",
+  "Promień": "Raio",
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Ativado – avisamos de SOS num raio de"
 }
