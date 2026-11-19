@@ -1144,5 +1144,17 @@
   "Powiadomienia SOS włączone.": "Obvestila SOS vklopljena.",
   "Powiadomienia są zablokowane w ustawieniach telefonu.": "Obvestila so blokirana v nastavitvah telefona.",
   "Promień": "Polmer",
-  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Vklopljeno – opozorili vas bomo na SOS v polmeru"
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Vklopljeno – opozorili vas bomo na SOS v polmeru",
+  "Akceptuję": "Sprejemam",
+  "Konto od": "Račun od",
+  "Moje konto": "Moj račun",
+  "Nieprawidłowe hasło.": "Napačno geslo.",
+  "Rozumiem, że konta i danych nie da się przywrócić.": "Razumem, da računa in podatkov ni mogoče obnoviti.",
+  "Twoje konto i dane zostały usunięte.": "Vaš račun in podatki so izbrisani.",
+  "Usunięcie konta jest nieodwracalne. Usuniemy Twój profil, ogłoszenia, pojazdy, zgłoszenia na mapie, wiadomości CB i powiadomienia.": "Izbris računa je nepovraten. Izbrisali bomo vaš profil, oglase, vozila, prijave na zemljevidu, sporočila CB in obvestila.",
+  "Usuń konto": "Izbriši račun",
+  "Usuń konto na zawsze": "Trajno izbriši račun",
+  "i": "in",
+  "politykę prywatności": "politiko zasebnosti",
+  "regulamin": "pogoje uporabe"
 }

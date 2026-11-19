@@ -1144,5 +1144,17 @@
   "Powiadomienia SOS włączone.": "SOS notifications turned on.",
   "Powiadomienia są zablokowane w ustawieniach telefonu.": "Notifications are blocked in your phone settings.",
   "Promień": "Radius",
-  "Włączone – ostrzeżemy Cię o SOS w promieniu": "On – we'll alert you about SOS within"
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "On – we'll alert you about SOS within",
+  "Akceptuję": "I accept the",
+  "Konto od": "Member since",
+  "Moje konto": "My account",
+  "Nieprawidłowe hasło.": "Incorrect password.",
+  "Rozumiem, że konta i danych nie da się przywrócić.": "I understand that the account and data cannot be restored.",
+  "Twoje konto i dane zostały usunięte.": "Your account and data have been deleted.",
+  "Usunięcie konta jest nieodwracalne. Usuniemy Twój profil, ogłoszenia, pojazdy, zgłoszenia na mapie, wiadomości CB i powiadomienia.": "Deleting your account cannot be undone. We will delete your profile, ads, vehicles, map reports, CB messages and notifications.",
+  "Usuń konto": "Delete account",
+  "Usuń konto na zawsze": "Delete account forever",
+  "i": "and the",
+  "politykę prywatności": "privacy policy",
+  "regulamin": "terms of service"
 }

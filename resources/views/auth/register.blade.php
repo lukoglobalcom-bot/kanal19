@@ -138,7 +138,7 @@
                 </div>
             </div>
             <label class="flex items-start gap-2.5"><input type="checkbox" name="terms" value="1" required class="mt-1 size-[18px] accent-k19-red">
-                <span>{{ __('Akceptuję regulamin i politykę prywatności.') }}</span></label>
+                <span>{{ __('Akceptuję') }} <a href="{{ route('terms') }}" target="_blank" class="text-k19-red">{{ __('regulamin') }}</a> {{ __('i') }} <a href="{{ route('privacy') }}" target="_blank" class="text-k19-red">{{ __('politykę prywatności') }}</a>.</span></label>
             @error('terms')<p class="k19-error">{{ $message }}</p>@enderror
 
             <button class="k19-btn-red">{{ __('Załóż konto i wyślij kod SMS') }}</button>

@@ -45,6 +45,7 @@
                     <a href="{{ route('advertiser.index') }}" class="inline-flex min-h-11 items-center rounded-xl border border-[#4A4F5A] px-4 font-semibold text-white no-underline">{{ __('Panel reklamodawcy') }}</a>
                 @endif
                 <a href="{{ route('vehicles.mine') }}" class="inline-flex min-h-11 items-center rounded-xl border border-[#4A4F5A] px-4 font-semibold text-white no-underline">{{ __('Moje pojazdy') }}</a>
+                <a href="{{ route('account') }}" class="inline-flex min-h-11 items-center rounded-xl px-3 font-semibold text-[#C9CCD3] no-underline hover:text-white" title="{{ __('Moje konto') }}">⚙ <span class="sr-only">{{ __('Moje konto') }}</span></a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button class="inline-flex min-h-11 items-center rounded-xl px-3 font-semibold text-[#C9CCD3] hover:text-white">{{ __('Wyloguj') }}</button>
@@ -108,7 +109,11 @@
         </div>
         <div class="flex flex-wrap justify-between gap-4 border-t border-[#2E323B] pt-5 text-[13px]">
             <span>© {{ date('Y') }} kanal19.pl</span>
-            <span>{{ __('Regulamin') }} · {{ __('Polityka prywatności') }}</span>
+            <span class="flex flex-wrap gap-x-4 gap-y-2">
+                <a href="{{ route('terms') }}" class="text-[#C9CCD3] no-underline hover:text-white">{{ __('Regulamin') }}</a>
+                <a href="{{ route('privacy') }}" class="text-[#C9CCD3] no-underline hover:text-white">{{ __('Polityka prywatności') }}</a>
+                @auth<a href="{{ route('account') }}" class="text-[#C9CCD3] no-underline hover:text-white">{{ __('Moje konto') }}</a>@endauth
+            </span>
         </div>
     </div>
 </footer>

@@ -3,10 +3,17 @@
         <div class="flex flex-wrap items-end justify-between gap-4">
             <h1 class="font-display text-[clamp(30px,4vw,42px)] font-extrabold">{{ __('Panel administratora') }}</h1>
             <div class="flex flex-wrap gap-2">
+                <a href="{{ route('admin.operator') }}" class="k19-btn-ghost">{{ __('Dane operatora') }}</a>
                 <a href="{{ route('admin.posts.admin') }}" class="k19-btn-ghost">{{ __('Aktualności') }}</a>
                 <a href="{{ route('admin.posts.create') }}" class="k19-btn-red">{{ __('Nowy wpis') }}</a>
             </div>
         </div>
+
+        @unless (\App\Models\Setting::operatorComplete())
+            <a href="{{ route('admin.operator') }}" class="mt-6 block rounded-2xl border-2 border-[#E8A317] bg-[#FFF6E0] p-4 font-semibold text-k19-ink no-underline">
+                ⚠ {{ __('Uzupełnij dane operatora (nazwa firmy, adres, NIP, e-mail) – są wymagane w regulaminie i polityce prywatności.') }} →
+            </a>
+        @endunless
 
         <div class="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
             @foreach ($stats as $label => $value)

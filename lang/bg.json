@@ -1144,5 +1144,17 @@
   "Powiadomienia SOS włączone.": "SOS известията са включени.",
   "Powiadomienia są zablokowane w ustawieniach telefonu.": "Известията са блокирани в настройките на телефона.",
   "Promień": "Радиус",
-  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Включено – ще ви предупредим за SOS в радиус"
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Включено – ще ви предупредим за SOS в радиус",
+  "Akceptuję": "Приемам",
+  "Konto od": "Профил от",
+  "Moje konto": "Моят профил",
+  "Nieprawidłowe hasło.": "Грешна парола.",
+  "Rozumiem, że konta i danych nie da się przywrócić.": "Разбирам, че профилът и данните не могат да бъдат възстановени.",
+  "Twoje konto i dane zostały usunięte.": "Вашият профил и данни бяха изтрити.",
+  "Usunięcie konta jest nieodwracalne. Usuniemy Twój profil, ogłoszenia, pojazdy, zgłoszenia na mapie, wiadomości CB i powiadomienia.": "Изтриването на профила е необратимо. Ще изтрием профила, обявите, превозните средства, сигналите на картата, CB съобщенията и известията ви.",
+  "Usuń konto": "Изтрий профила",
+  "Usuń konto na zawsze": "Изтрий профила завинаги",
+  "i": "и",
+  "politykę prywatności": "политиката за поверителност",
+  "regulamin": "общите условия"
 }

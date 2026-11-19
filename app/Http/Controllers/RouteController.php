@@ -91,7 +91,8 @@ class RouteController extends Controller
                 try {
                     $res = Http::withHeaders(['User-Agent' => 'Kanal19.pl route planner (https://kanal19.pl)'])
                         ->timeout(8)->get(rtrim(config('services.geocoding.url'), '/').'/reverse', [
-                            'lat' => $d['lat'], 'lon' => $d['lng'], 'format' => 'jsonv2', 'zoom' => 3,
+                            // tylko środek kratki ~25 km – dokładna pozycja kierowcy nie opuszcza serwera
+                            'lat' => round($d['lat'] * 4) / 4, 'lon' => round($d['lng'] * 4) / 4, 'format' => 'jsonv2', 'zoom' => 3,
                         ]);
                 } catch (\Throwable) {
                     return '';

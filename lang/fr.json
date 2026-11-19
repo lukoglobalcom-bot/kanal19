@@ -1144,5 +1144,17 @@
   "Powiadomienia SOS włączone.": "Alertes SOS activées.",
   "Powiadomienia są zablokowane w ustawieniach telefonu.": "Les notifications sont bloquées dans les réglages du téléphone.",
   "Promień": "Rayon",
-  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Activé – nous vous alertons des SOS dans un rayon de"
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Activé – nous vous alertons des SOS dans un rayon de",
+  "Akceptuję": "J'accepte les",
+  "Konto od": "Compte depuis",
+  "Moje konto": "Mon compte",
+  "Nieprawidłowe hasło.": "Mot de passe incorrect.",
+  "Rozumiem, że konta i danych nie da się przywrócić.": "Je comprends que le compte et les données ne pourront pas être restaurés.",
+  "Twoje konto i dane zostały usunięte.": "Votre compte et vos données ont été supprimés.",
+  "Usunięcie konta jest nieodwracalne. Usuniemy Twój profil, ogłoszenia, pojazdy, zgłoszenia na mapie, wiadomości CB i powiadomienia.": "La suppression du compte est définitive. Nous supprimerons votre profil, vos annonces, véhicules, signalements sur la carte, messages CB et notifications.",
+  "Usuń konto": "Supprimer le compte",
+  "Usuń konto na zawsze": "Supprimer le compte définitivement",
+  "i": "et la",
+  "politykę prywatności": "politique de confidentialité",
+  "regulamin": "conditions d'utilisation"
 }

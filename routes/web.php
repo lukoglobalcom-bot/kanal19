@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdvertiserController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CbController;
 use App\Http\Controllers\PushController;
@@ -41,6 +42,14 @@ Route::middleware(['auth', 'phone'])->group(function () {
     Route::delete('/powiadomienia', [PushController::class, 'unsubscribe'])->name('push.unsubscribe');
     Route::post('/mapa/zgloszenia/{report}/glos', [MapController::class, 'vote'])->middleware('throttle:30,1')->name('map.vote');
     Route::post('/mapa/zgloszenia/{report}/zamknij', [MapController::class, 'close'])->name('map.close');
+});
+
+// Dokumenty i konto
+Route::get('/regulamin', [AccountController::class, 'terms'])->name('terms');
+Route::get('/polityka-prywatnosci', [AccountController::class, 'privacy'])->name('privacy');
+Route::middleware('auth')->group(function () {
+    Route::get('/konto', [AccountController::class, 'show'])->name('account');
+    Route::delete('/konto', [AccountController::class, 'destroy'])->middleware('throttle:5,1')->name('account.destroy');
 });
 
 // CB Kanał 19 – tekstowe radio kierowców
@@ -116,6 +125,8 @@ Route::get('/artykul/{creative}', [AdvertiserController::class, 'article'])->nam
 // Administrator
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::get('/operator', [AccountController::class, 'operatorForm'])->name('operator');
+    Route::post('/operator', [AccountController::class, 'operatorSave'])->name('operator.save');
     Route::get('/wpisy', [PostController::class, 'admin'])->name('posts.admin');
     Route::get('/wpisy/nowy', [PostController::class, 'create'])->name('posts.create');
     Route::post('/wpisy', [PostController::class, 'store'])->name('posts.store');

@@ -91,6 +91,16 @@ class User extends Authenticatable
         return $this->hasMany(JobOffer::class);
     }
 
+    public function vehicleListings(): HasMany
+    {
+        return $this->hasMany(VehicleListing::class);
+    }
+
+    public function adCampaigns(): HasMany
+    {
+        return $this->hasMany(AdCampaign::class);
+    }
+
     public function applications(): HasMany
     {
         return $this->hasMany(JobApplication::class);

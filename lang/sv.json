@@ -1144,5 +1144,17 @@
   "Powiadomienia SOS włączone.": "SOS-aviseringar påslagna.",
   "Powiadomienia są zablokowane w ustawieniach telefonu.": "Aviseringar är blockerade i telefonens inställningar.",
   "Promień": "Radie",
-  "Włączone – ostrzeżemy Cię o SOS w promieniu": "På – vi varnar dig för SOS inom"
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "På – vi varnar dig för SOS inom",
+  "Akceptuję": "Jag godkänner",
+  "Konto od": "Konto sedan",
+  "Moje konto": "Mitt konto",
+  "Nieprawidłowe hasło.": "Fel lösenord.",
+  "Rozumiem, że konta i danych nie da się przywrócić.": "Jag förstår att kontot och uppgifterna inte kan återställas.",
+  "Twoje konto i dane zostały usunięte.": "Ditt konto och dina uppgifter har raderats.",
+  "Usunięcie konta jest nieodwracalne. Usuniemy Twój profil, ogłoszenia, pojazdy, zgłoszenia na mapie, wiadomości CB i powiadomienia.": "Att radera kontot går inte att ångra. Vi raderar din profil, annonser, fordon, kartrapporter, CB-meddelanden och aviseringar.",
+  "Usuń konto": "Radera konto",
+  "Usuń konto na zawsze": "Radera kontot för alltid",
+  "i": "och",
+  "politykę prywatności": "integritetspolicyn",
+  "regulamin": "användarvillkoren"
 }
