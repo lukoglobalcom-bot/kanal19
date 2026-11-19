@@ -78,6 +78,37 @@ class RouteController extends Controller
         return response()->json($results);
     }
 
+    /** Kraj dla pozycji GPS (do zgłoszeń z trybu jazdy). Siatka ok. 25 km, wynik w cache 30 dni. */
+    public function country(Request $request): JsonResponse
+    {
+        $d = $request->validate(['lat' => ['required', 'numeric', 'between:-90,90'], 'lng' => ['required', 'numeric', 'between:-180,180']]);
+        $key = 'cc:'.round($d['lat'] * 4).':'.round($d['lng'] * 4);
+
+        $code = Cache::get($key);
+        if ($code === null) {
+            $code = Cache::lock('nominatim', 3)->block(5, function () use ($d) {
+                $started = microtime(true);
+                try {
+                    $res = Http::withHeaders(['User-Agent' => 'Kanal19.pl route planner (https://kanal19.pl)'])
+                        ->timeout(8)->get(rtrim(config('services.geocoding.url'), '/').'/reverse', [
+                            'lat' => $d['lat'], 'lon' => $d['lng'], 'format' => 'jsonv2', 'zoom' => 3,
+                        ]);
+                } catch (\Throwable) {
+                    return '';
+                } finally {
+                    usleep(max(0, (int) (1_050_000 - (microtime(true) - $started) * 1_000_000)));
+                }
+
+                return $res->ok() ? strtoupper((string) $res->json('address.country_code')) : '';
+            });
+            if ($code !== '') {
+                Cache::put($key, $code, now()->addDays(30));
+            }
+        }
+
+        return response()->json(['country' => in_array($code, MapReport::COUNTRIES, true) ? $code : null]);
+    }
+
     public function plan(Request $request): JsonResponse
     {
         $d = $request->validate([

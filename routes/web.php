@@ -28,6 +28,8 @@ Route::view('/app', 'app')->name('app');
 Route::view('/kalkulator', 'calculator')->name('calculator');
 Route::get('/trasa', [RouteController::class, 'index'])->name('route.index');
 Route::get('/trasa/szukaj', [RouteController::class, 'search'])->middleware('throttle:20,1')->name('route.search');
+Route::get('/trasa/kraj', [RouteController::class, 'country'])->middleware('throttle:30,1')->name('route.country');
+Route::view('/jazda', 'map.drive')->name('drive');
 Route::post('/trasa/wyznacz', [RouteController::class, 'plan'])->middleware('throttle:15,1')->name('route.plan');
 Route::middleware(['auth', 'phone'])->group(function () {
     Route::post('/mapa/zgloszenia', [MapController::class, 'store'])->middleware('throttle:15,1')->name('map.store');
@@ -39,6 +41,7 @@ Route::middleware(['auth', 'phone'])->group(function () {
 Route::get('/cb', [CbController::class, 'index'])->name('cb.index');
 Route::get('/cb/wiadomosci', [CbController::class, 'messages'])->middleware('throttle:60,1')->name('cb.messages');
 Route::middleware(['auth', 'phone'])->group(function () {
+    Route::post('/cb/glos', [CbController::class, 'voice'])->middleware('throttle:20,1')->name('cb.voice');
     Route::post('/cb/wiadomosci', [CbController::class, 'store'])->middleware('throttle:6,1')->name('cb.store');
     Route::post('/cb/wiadomosci/{message}/zglos', [CbController::class, 'report'])->middleware('throttle:20,1')->name('cb.report');
     Route::delete('/cb/wiadomosci/{message}', [CbController::class, 'destroy'])->name('cb.destroy');

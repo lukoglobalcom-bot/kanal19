@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CbMessage;
+use App\Services\VoiceToken;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -68,6 +69,21 @@ class CbController extends Controller
         }
 
         return response()->json(['ok' => true, 'message' => __('Dziękujemy, zgłoszenie przyjęte.')]);
+    }
+
+    /** Bilet do kanału głosowego (tylko zalogowani z potwierdzonym kontem). */
+    public function voice(Request $request): JsonResponse
+    {
+        abort_unless(VoiceToken::enabled(), 503, __('Głosowe CB startuje wkrótce.'));
+        $channel = $request->validate(['channel' => ['required', Rule::in(CbMessage::CHANNELS)]])['channel'];
+        $user = $request->user()->loadMissing('driverProfile');
+        $m = new CbMessage;
+        $m->setRelation('author', $user);
+
+        return response()->json([
+            'url' => config('services.livekit.url'),
+            'token' => VoiceToken::make('u'.$user->id, $m->signature(), VoiceToken::room($channel)),
+        ]);
     }
 
     public function destroy(Request $request, CbMessage $message): JsonResponse

@@ -53,7 +53,7 @@ foreach (scandir("$root/public_html/nowy") as $f) {
 }
 // Nowe klucze w .env (puste), jesli ich brak
 $env = file_get_contents("$app/.env");
-foreach (['SMS_API_TOKEN', 'SMS_SENDER', 'ROUTING_URL', 'ROUTING_KEY'] as $k) {
+foreach (['SMS_API_TOKEN', 'SMS_SENDER', 'ROUTING_URL', 'ROUTING_KEY', 'LIVEKIT_URL', 'LIVEKIT_KEY', 'LIVEKIT_SECRET'] as $k) {
     if (!preg_match("/^$k=/m", $env)) $env = rtrim($env)."\n$k=\n";
 }
 file_put_contents("$app/.env", $env);

@@ -22,6 +22,7 @@ class MapReport extends Model
         'roadwork' => ['label' => 'Roboty drogowe', 'ttl' => 72, 'avoid' => false],
         'accident' => ['label' => 'Wypadek', 'ttl' => 3, 'avoid' => false],
         'jam' => ['label' => 'Korek', 'ttl' => 2, 'avoid' => false],
+        'police' => ['label' => 'Kontrola (ITD / policja)', 'ttl' => 1, 'avoid' => false],
         'low_bridge' => ['label' => 'Niski wiadukt', 'ttl' => 720, 'avoid' => true],
         'weight_limit' => ['label' => 'Ograniczenie masy', 'ttl' => 720, 'avoid' => true],
         'truck_ban' => ['label' => 'Zakaz dla ciężarówek', 'ttl' => 720, 'avoid' => true],

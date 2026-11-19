@@ -102,4 +102,15 @@ class RouteTest extends TestCase
         $this->postJson('/mapa/zgloszenia', ['kind' => 'road', 'lat' => 52.1, 'lng' => 20.1, 'country' => 'PL', 'problem' => 'jam', 'limit' => 5])->assertOk();
         $this->assertArrayNotHasKey('limit', MapReport::latest('id')->first()->data);
     }
+
+    public function test_drive_mode_page_and_country_lookup(): void
+    {
+        $this->get('/jazda')->assertOk()->assertSee('k19-speed', false)->assertDontSee('id="k19-report-btn"', false);
+        $this->actingAs($this->driver())->get('/jazda')->assertOk()->assertSee('id="k19-report-btn"', false);
+
+        Http::fake(['nominatim.openstreetmap.org/*' => Http::response(['address' => ['country_code' => 'de']])]);
+        $this->getJson('/trasa/kraj?lat=52.52&lng=13.40')->assertOk()->assertJsonPath('country', 'DE');
+        $this->getJson('/trasa/kraj?lat=52.53&lng=13.41')->assertOk()->assertJsonPath('country', 'DE');
+        Http::assertSentCount(1);
+    }
 }

@@ -42,6 +42,13 @@ return [
         'key' => env('ROUTING_KEY'),
     ],
 
+    // Głosowe CB (LiveKit na serwerze tras). Bez tych wartości przycisk „Mów” jest ukryty.
+    'livekit' => [
+        'url' => env('LIVEKIT_URL'),
+        'key' => env('LIVEKIT_KEY'),
+        'secret' => env('LIVEKIT_SECRET'),
+    ],
+
     // Wyszukiwanie adresów (Nominatim – maks. 1 zapytanie/s, wyniki w cache)
     'geocoding' => [
         'url' => env('GEOCODING_URL', 'https://nominatim.openstreetmap.org'),

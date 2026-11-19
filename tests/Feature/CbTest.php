@@ -79,4 +79,26 @@ class CbTest extends TestCase
         $this->actingAs($admin)->deleteJson('/cb/wiadomosci/'.$m->id)->assertOk();
         $this->assertSame(0, CbMessage::count());
     }
+
+    public function test_voice_token_only_when_configured_and_signed(): void
+    {
+        $d = $this->driver();
+        config(['services.livekit' => ['url' => null, 'key' => null, 'secret' => null]]);
+        $this->actingAs($d)->get('/cb')->assertDontSee('k19-voice-ptt', false);
+        $this->postJson('/cb/glos', ['channel' => 'PL'])->assertStatus(503);
+
+        config(['services.livekit' => ['url' => 'wss://cb.test', 'key' => 'APIk19', 'secret' => 'sekret']]);
+        $this->get('/cb')->assertSee('k19-voice-ptt', false);
+        $res = $this->postJson('/cb/glos', ['channel' => 'DE'])->assertOk()->assertJsonPath('url', 'wss://cb.test');
+        [$h, $b, $sig] = explode('.', $res->json('token'));
+        $this->assertSame(rtrim(strtr(base64_encode(hash_hmac('sha256', "$h.$b", 'sekret', true)), '+/', '-_'), '='), $sig);
+        $claims = json_decode(base64_decode(strtr($b, '-_', '+/')), true);
+        $this->assertSame('APIk19', $claims['iss']);
+        $this->assertSame('cb-de', $claims['video']['room']);
+        $this->assertSame('Marek N.', $claims['name']);
+        $this->postJson('/cb/glos', ['channel' => 'XX'])->assertUnprocessable();
+
+        auth()->logout();
+        $this->postJson('/cb/glos', ['channel' => 'PL'])->assertUnauthorized();
+    }
 }
