@@ -22,6 +22,46 @@
             </div>
         </div>
 
+        @if ($canPost && \App\Services\VoiceToken::enabled())
+            @vite('resources/js/cb-voice.js')
+            <div id="k19-voice" class="k19-card mt-5 flex flex-col items-center gap-3 p-5 text-center">
+                <p class="font-display text-2xl font-bold">🎙 {{ __('Głos na kanale') }}</p>
+                <p id="k19-voice-state" class="text-sm text-k19-muted">{{ __('Włącz odsłuch, żeby słyszeć kierowców na wybranym kanale.') }}</p>
+                <button type="button" id="k19-voice-join" class="k19-btn-dark">{{ __('Włącz odsłuch') }}</button>
+                <button type="button" id="k19-voice-ptt" hidden class="flex size-40 select-none items-center justify-center rounded-full bg-k19-red font-display text-3xl font-extrabold text-white shadow-lg touch-none active:scale-95 data-[on]:bg-[#14532D]">{{ __('MÓW') }}</button>
+                <p id="k19-voice-who" class="min-h-6 font-semibold text-k19-red" aria-live="polite"></p>
+                <p class="text-xs text-k19-muted">{{ __('Przytrzymaj przycisk i mów. Używaj zestawu głośnomówiącego – nie trzymaj telefonu w ręce podczas jazdy.') }}</p>
+            </div>
+            <script type="module">
+            (() => {
+                const T = @js(['on' => __('Odsłuch włączony. Na kanale:'), 'off' => __('Wyłącz odsłuch'), 'join' => __('Włącz odsłuch'), 'err' => __('Nie udało się połączyć z głosowym CB.'), 'talks' => __('Mówi:'), 'mic' => __('Brak dostępu do mikrofonu.')]);
+                const csrf = document.querySelector('meta[name=csrf-token]').content;
+                const ch = document.getElementById('k19-cb-channel');
+                const join = document.getElementById('k19-voice-join'), ptt = document.getElementById('k19-voice-ptt');
+                const state = document.getElementById('k19-voice-state'), who = document.getElementById('k19-voice-who');
+                let live = false;
+                async function start() {
+                    const r = await fetch(@js(route('cb.voice')), {method: 'POST', headers: {'X-CSRF-TOKEN': csrf, Accept: 'application/json', 'Content-Type': 'application/json'}, body: JSON.stringify({channel: ch.value})});
+                    const d = await r.json().catch(() => ({}));
+                    if (!r.ok) throw new Error(d.message || T.err);
+                    await window.K19Voice.connect(d.url, d.token, {
+                        onSpeakers: names => who.textContent = names.length ? T.talks + ' ' + names.join(', ') : '',
+                        onState: n => { if (n === null) stop(); else state.textContent = T.on + ' ' + n; },
+                    });
+                    live = true; join.textContent = T.off; ptt.hidden = false;
+                }
+                async function stop() { live = false; await window.K19Voice.disconnect(); join.textContent = T.join; ptt.hidden = true; who.textContent = ''; }
+                join.onclick = async () => { try { live ? await stop() : await start(); } catch (e) { state.textContent = e.message || T.err; } };
+                ch.addEventListener('change', async () => { if (live) { await stop(); try { await start(); } catch (e) { state.textContent = T.err; } } });
+                const down = async e => { e.preventDefault(); try { await window.K19Voice.talk(true); ptt.dataset.on = ''; } catch (err) { state.textContent = T.mic; } };
+                const up = async () => { delete ptt.dataset.on; await window.K19Voice.talk(false).catch(() => {}); };
+                ptt.addEventListener('pointerdown', down);
+                ['pointerup', 'pointerleave', 'pointercancel'].forEach(ev => ptt.addEventListener(ev, up));
+                ptt.addEventListener('contextmenu', e => e.preventDefault());
+            })();
+            </script>
+        @endif
+
         <div id="k19-cb-list" class="k19-card mt-5 flex max-h-[60vh] min-h-64 flex-col gap-2 overflow-y-auto p-4" aria-live="polite">
             <p class="text-k19-muted" data-empty>{{ __('Cisza w eterze. Napisz pierwszy komunikat.') }}</p>
         </div>

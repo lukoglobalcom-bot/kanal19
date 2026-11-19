@@ -1,5 +1,6 @@
 @php
     $tiles = [
+        ['route' => 'drive', 'icon' => '🚛', 'label' => __('Tryb jazdy'), 'sub' => __('Mapa, ostrzeżenia, CB'), 'class' => 'bg-k19-ink text-white col-span-2 min-h-36'],
         ['route' => 'map.sos', 'icon' => '🆘', 'label' => 'SOS', 'sub' => __('Wezwij pomoc'), 'class' => 'bg-k19-red text-white col-span-2 min-h-36'],
         ['route' => 'map.index', 'icon' => '🅿', 'label' => __('Parkingi'), 'sub' => __('Wolne miejsca'), 'class' => 'bg-white text-k19-ink'],
         ['route' => 'map.index', 'icon' => '⛽', 'label' => __('Paliwo'), 'sub' => __('Ceny od kierowców'), 'class' => 'bg-white text-k19-ink'],
