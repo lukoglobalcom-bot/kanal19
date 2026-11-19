@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdvertiserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CbController;
+use App\Http\Controllers\RouteController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\MapController;
@@ -25,6 +26,9 @@ Route::get('/mapa/dane', [MapController::class, 'data'])->name('map.data');
 Route::get('/sos', [MapController::class, 'sos'])->name('map.sos');
 Route::view('/app', 'app')->name('app');
 Route::view('/kalkulator', 'calculator')->name('calculator');
+Route::get('/trasa', [RouteController::class, 'index'])->name('route.index');
+Route::get('/trasa/szukaj', [RouteController::class, 'search'])->middleware('throttle:20,1')->name('route.search');
+Route::post('/trasa/wyznacz', [RouteController::class, 'plan'])->middleware('throttle:15,1')->name('route.plan');
 Route::middleware(['auth', 'phone'])->group(function () {
     Route::post('/mapa/zgloszenia', [MapController::class, 'store'])->middleware('throttle:15,1')->name('map.store');
     Route::post('/mapa/sos/{report}/pomoc', [MapController::class, 'help'])->middleware('throttle:30,1')->name('map.help');

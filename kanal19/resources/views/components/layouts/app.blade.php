@@ -61,6 +61,7 @@
             <a href="{{ route('vehicles.index') }}" class="k19-sign shrink-0">{{ __('Giełda pojazdów') }}</a>
             <a href="{{ route('map.index') }}" class="k19-sign shrink-0">{{ __('Mapa i parkingi') }}</a>
             <a href="{{ route('cb.index') }}" class="k19-sign shrink-0">{{ __('CB Kanał 19') }}</a>
+            <a href="{{ route('route.index') }}" class="k19-sign shrink-0">{{ __('Planer trasy') }}</a>
             <a href="{{ route('posts.index') }}" class="k19-sign shrink-0">{{ __('Aktualności') }}</a>
             @auth
                 @if (auth()->user()->isCompany())

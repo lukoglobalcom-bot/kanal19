@@ -36,6 +36,17 @@ return [
         'required' => env('SMS_REQUIRED', false),
     ],
 
+    // Planer trasy: własny serwer Valhalla (OpenStreetMap). Bez ROUTING_URL planer pokazuje „startuje wkrótce”.
+    'routing' => [
+        'url' => env('ROUTING_URL'),
+        'key' => env('ROUTING_KEY'),
+    ],
+
+    // Wyszukiwanie adresów (Nominatim – maks. 1 zapytanie/s, wyniki w cache)
+    'geocoding' => [
+        'url' => env('GEOCODING_URL', 'https://nominatim.openstreetmap.org'),
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),

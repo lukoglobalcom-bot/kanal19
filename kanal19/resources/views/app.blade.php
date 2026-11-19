@@ -3,6 +3,7 @@
         ['route' => 'map.sos', 'icon' => '🆘', 'label' => 'SOS', 'sub' => __('Wezwij pomoc'), 'class' => 'bg-k19-red text-white col-span-2 min-h-36'],
         ['route' => 'map.index', 'icon' => '🅿', 'label' => __('Parkingi'), 'sub' => __('Wolne miejsca'), 'class' => 'bg-white text-k19-ink'],
         ['route' => 'map.index', 'icon' => '⛽', 'label' => __('Paliwo'), 'sub' => __('Ceny od kierowców'), 'class' => 'bg-white text-k19-ink'],
+        ['route' => 'route.index', 'icon' => '🗺', 'label' => __('Trasa'), 'sub' => __('Planer dla ciężarówek'), 'class' => 'bg-white text-k19-ink'],
         ['route' => 'cb.index', 'icon' => '📻', 'label' => 'CB', 'sub' => __('Kanał 19 na żywo'), 'class' => 'bg-k19-ink text-white col-span-2'],
         ['route' => 'calculator', 'icon' => '🧮', 'label' => __('Kalkulator trasy'), 'sub' => __('Koszt i pauzy'), 'class' => 'bg-white text-k19-ink'],
         ['route' => 'home', 'icon' => '💼', 'label' => __('Praca'), 'sub' => __('Oferty pracy'), 'class' => 'bg-white text-k19-ink'],
