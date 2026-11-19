@@ -12,7 +12,7 @@
     "src": "node_modules/leaflet/dist/images/marker-icon.png"
   },
   "resources/css/app.css": {
-    "file": "assets/app-Dn4yee40.css",
+    "file": "assets/app-Dcd0uZxf.css",
     "name": "app",
     "names": [
       "app.css"
@@ -45,5 +45,11 @@
       "assets/layers-2x-Bpkbi35X.png",
       "assets/marker-icon-hN30_KVU.png"
     ]
+  },
+  "resources/js/tacho.js": {
+    "file": "assets/tacho-BzmM1jFH.js",
+    "name": "tacho",
+    "src": "resources/js/tacho.js",
+    "isEntry": true
   }
 }

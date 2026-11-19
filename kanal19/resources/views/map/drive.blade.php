@@ -18,7 +18,7 @@
     <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">
     <meta name="theme-color" content="#16181D">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    @vite(['resources/css/app.css', 'resources/js/map.js'])
+    @vite(['resources/css/app.css', 'resources/js/map.js', 'resources/js/tacho.js'])
     @if ($voice) @vite('resources/js/cb-voice.js') @endif
     <style>
         html, body { height: 100%; overflow: hidden; overscroll-behavior: none; }
@@ -46,6 +46,7 @@
             <span id="k19-speed" class="font-display text-4xl font-extrabold leading-none">–</span>
             <span class="text-xs font-bold text-[#C9CDD3]">km/h</span>
         </div>
+        <a href="{{ route('pause') }}" id="k19-tacho" class="absolute bottom-7 left-32 z-[400] flex min-h-14 items-center gap-2 rounded-2xl bg-k19-ink px-4 font-display text-2xl font-extrabold text-white no-underline shadow-xl" aria-label="{{ __('Do obowiązkowej przerwy') }}">☕ <span id="k19-tacho-left">–</span></a>
 
         <div class="absolute right-3 top-3 z-[400] flex flex-col gap-2">
             <a href="{{ route('app') }}" class="flex size-12 items-center justify-center rounded-xl bg-k19-ink text-2xl shadow-lg" aria-label="{{ __('Zamknij tryb jazdy') }}">✕</a>
@@ -236,9 +237,30 @@
         const arrow = document.getElementById('k19-me'); if (arrow && heading !== null) arrow.style.transform = `rotate(${heading}deg)`;
         if (follow) map.panTo([pos.lat, pos.lng], {animate: true});
         $('k19-speed').textContent = now.speed != null ? Math.round(now.speed * 3.6) : '–';
-        checkAhead(); checkPassed(); updateCountry();
+        checkAhead(); checkPassed(); updateCountry(); tacho(now);
         if (!lastPush || now.t - lastPush > 600000) { lastPush = now.t; window.K19PushLocate?.(now.lat, now.lng); }
     }, () => { if (!pos) status(T.noGps); }, {enableHighAccuracy: true, maximumAge: 2000, timeout: 20000});
+
+    // Licznik czasu jazdy (Pauza) – podgląd i automatyczne przełączanie z GPS
+    const K = window.K19Tacho;
+    let stillSince = null, movingSince = null;
+    function tacho(now) {
+        if (!K) return;
+        const st = K.load();
+        const c0 = K.compute(st);
+        if (st.auto && now) {
+            const v = (now.speed ?? 0) * 3.6;
+            if (v > 15) { stillSince = null; movingSince = movingSince ?? now.t; if (!c0.driving && now.t - movingSince > 60000) { K.setActivity(st, 'drive', movingSince); K.save(st); } }
+            else if (v < 3) { movingSince = null; stillSince = stillSince ?? now.t; if (c0.driving && now.t - stillSince > 300000) { K.setActivity(st, 'rest', stillSince); K.save(st); } }
+        }
+        const c = K.compute(st);
+        const box = $('k19-tacho');
+        $('k19-tacho-left').textContent = c.driving || c.daily > 0 ? K.fmt(c.left) : '4:30';
+        box.style.background = c.driving && c.left <= 15 * 60000 ? '#C8221A' : c.driving && c.left <= 45 * 60000 ? '#E8A317' : '';
+        box.style.color = c.driving && c.left <= 45 * 60000 && c.left > 15 * 60000 ? '#16181D' : '';
+        if (c.driving && c.left <= 15 * 60000 && !warned.has('tacho15')) { warned.add('tacho15'); if (sound) { beep(); say(@js(__('Za 15 minut musisz zrobić przerwę – poszukaj parkingu.'))); } }
+    }
+    tacho(); setInterval(() => tacho(), 30000);
 
     // Szybkie zgłoszenia
     const quick = $('k19-quick');
