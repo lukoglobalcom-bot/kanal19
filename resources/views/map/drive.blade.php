@@ -55,6 +55,15 @@
 
         <p id="k19-status" class="absolute left-1/2 top-3 z-[400] -translate-x-1/2 rounded-full bg-k19-ink/90 px-4 py-2 text-sm font-semibold shadow-lg">{{ __('Szukam sygnału GPS…') }}</p>
 
+        {{-- „Nadal jest?” po minięciu utrudnienia --}}
+        <div id="k19-confirm" hidden class="absolute inset-x-3 bottom-32 z-[440] rounded-2xl bg-white p-4 text-k19-ink shadow-2xl">
+            <p class="text-center font-display text-xl font-bold"><span id="k19-confirm-text"></span> – {{ __('nadal jest?') }}</p>
+            <div class="mt-3 grid grid-cols-2 gap-3">
+                <button type="button" data-still="1" class="k19-q rounded-2xl bg-[#14532D] font-display text-xl font-bold text-white">✓ {{ __('Tak, jest') }}</button>
+                <button type="button" data-still="0" class="k19-q rounded-2xl bg-k19-paper font-display text-xl font-bold">✕ {{ __('Już nie ma') }}</button>
+            </div>
+        </div>
+
         {{-- Panel szybkiego zgłoszenia --}}
         <div id="k19-quick" hidden class="absolute inset-x-0 bottom-0 z-[450] rounded-t-3xl bg-k19-ink p-4 shadow-2xl">
             <p class="mb-3 text-center font-display text-2xl font-bold">{{ __('Co jest na drodze?') }}</p>
@@ -165,7 +174,7 @@
         const label = best.r.kind === 'sos' ? T.sos : best.r.problem_label;
         $('k19-alert-icon').textContent = best.r.kind === 'sos' ? '🆘' : (probIcons[best.r.data?.problem] || '⚠');
         $('k19-alert-text').textContent = label;
-        $('k19-alert-sub').textContent = [best.r.data?.road, best.r.data?.note || best.r.message, T.ahead].filter(Boolean).join(' · ');
+        $('k19-alert-sub').textContent = [best.r.data?.road, best.r.data?.note || best.r.message, best.r.confirmations ? '✓ ' + best.r.confirmations : null, T.ahead].filter(Boolean).join(' · ');
         $('k19-alert-dist').textContent = fmt(best.d);
         box.style.background = best.r.kind === 'sos' ? '#C8221A' : '#E8A317';
         box.hidden = false;
@@ -175,6 +184,33 @@
             navigator.vibrate?.([200, 100, 200]);
         }
     }
+
+    // Po minięciu utrudnienia pytamy, czy nadal jest
+    const canVote = @js($canReport);
+    const near = new Map(), asked = new Set();
+    let confirmFor = null, confirmTimer = null;
+    function checkPassed() {
+        if (!canVote || !pos || !$('k19-confirm').hidden) return;
+        for (const r of reports) {
+            if (r.kind !== 'road' || r.mine || asked.has(r.id)) continue;
+            const d = dist(pos, r);
+            if (d < 150) near.set(r.id, true);
+            else if (d > 250 && near.get(r.id)) { askConfirm(r); break; }
+        }
+    }
+    function askConfirm(r) {
+        asked.add(r.id); confirmFor = r;
+        $('k19-confirm-text').textContent = r.problem_label;
+        $('k19-confirm').hidden = false;
+        clearTimeout(confirmTimer); confirmTimer = setTimeout(() => $('k19-confirm').hidden = true, 15000);
+    }
+    document.querySelectorAll('[data-still]').forEach(b => b.onclick = async () => {
+        $('k19-confirm').hidden = true;
+        if (!confirmFor) return;
+        const r = await fetch(@js(url('/mapa/zgloszenia')) + '/' + confirmFor.id + '/glos', {method: 'POST', headers: {'X-CSRF-TOKEN': csrf, Accept: 'application/json', 'Content-Type': 'application/json'}, body: JSON.stringify({still: b.dataset.still === '1'})});
+        const d = await r.json().catch(() => ({}));
+        if (r.ok) { status(d.message, 2500); loadReports(); }
+    });
 
     // GPS
     let country = null, countryAt = null;
@@ -198,7 +234,7 @@
         const arrow = document.getElementById('k19-me'); if (arrow && heading !== null) arrow.style.transform = `rotate(${heading}deg)`;
         if (follow) map.panTo([pos.lat, pos.lng], {animate: true});
         $('k19-speed').textContent = now.speed != null ? Math.round(now.speed * 3.6) : '–';
-        checkAhead(); updateCountry();
+        checkAhead(); checkPassed(); updateCountry();
     }, () => { if (!pos) status(T.noGps); }, {enableHighAccuracy: true, maximumAge: 2000, timeout: 20000});
 
     // Szybkie zgłoszenia

@@ -34,6 +34,7 @@ Route::post('/trasa/wyznacz', [RouteController::class, 'plan'])->middleware('thr
 Route::middleware(['auth', 'phone'])->group(function () {
     Route::post('/mapa/zgloszenia', [MapController::class, 'store'])->middleware('throttle:15,1')->name('map.store');
     Route::post('/mapa/sos/{report}/pomoc', [MapController::class, 'help'])->middleware('throttle:30,1')->name('map.help');
+    Route::post('/mapa/zgloszenia/{report}/glos', [MapController::class, 'vote'])->middleware('throttle:30,1')->name('map.vote');
     Route::post('/mapa/zgloszenia/{report}/zamknij', [MapController::class, 'close'])->name('map.close');
 });
 

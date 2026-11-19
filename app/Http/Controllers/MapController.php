@@ -30,7 +30,8 @@ class MapController extends Controller
         $viewer = $request->user();
         $trusted = $viewer && ($viewer->isAdmin() || $viewer->hasVerifiedPhone());
 
-        $reports = MapReport::active()->with('author:id,name,phone')->withCount('responses')
+        $reports = MapReport::active()->with('author:id,name,phone')
+            ->withCount(['responses', 'votes as confirmations' => fn ($q) => $q->where('still', true)])
             ->latest()->limit(500)->get();
         $helping = $viewer ? \App\Models\SosResponse::where('user_id', $viewer->id)->pluck('map_report_id')->all() : [];
 
@@ -57,6 +58,7 @@ class MapController extends Controller
             } elseif ($r->kind === 'road') {
                 $out['data'] = $data;
                 $out['problem_label'] = __(MapReport::ROAD_PROBLEMS[$data['problem'] ?? '']['label'] ?? '');
+                $out['confirmations'] = (int) $r->confirmations;
             } else {
                 $out['data'] = $data;
             }
@@ -139,6 +141,33 @@ class MapController extends Controller
         $msg = __('Dziękujemy! Kierowca widzi, że jedziesz z pomocą.');
 
         return $request->wantsJson() ? response()->json(['ok' => true, 'message' => $msg]) : back()->with('status', $msg);
+    }
+
+    /** „Nadal jest?” – kierowca mijający utrudnienie potwierdza je albo zgłasza, że już go nie ma. */
+    public function vote(Request $request, MapReport $report): JsonResponse
+    {
+        abort_unless($report->kind === 'road' && $report->expires_at->isFuture(), 404);
+        abort_if((int) $report->user_id === (int) $request->user()->id, 403);
+        $still = $request->validate(['still' => ['required', 'boolean']])['still'];
+        $still = filter_var($still, FILTER_VALIDATE_BOOL);
+
+        $report->votes()->updateOrCreate(['user_id' => $request->user()->id], ['still' => $still]);
+
+        if ($still) {
+            // Potwierdzone – liczymy czas widoczności od nowa
+            $until = now()->addHours(MapReport::ttlFor('road', $report->data ?? []));
+            if ($until->greaterThan($report->expires_at)) {
+                $report->forceFill(['expires_at' => $until])->save();
+            }
+        } else {
+            $yes = $report->votes()->where('still', true)->count();
+            $no = $report->votes()->where('still', false)->count();
+            if ($no - $yes >= MapReport::GONE_VOTES) {
+                $report->forceFill(['expires_at' => now()])->save();
+            }
+        }
+
+        return response()->json(['ok' => true, 'message' => __('Dziękujemy za potwierdzenie!')]);
     }
 
     public function close(Request $request, MapReport $report): RedirectResponse|JsonResponse

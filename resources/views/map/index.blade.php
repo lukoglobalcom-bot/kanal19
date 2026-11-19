@@ -99,7 +99,7 @@
             'help' => __('Jadę pomóc'), 'helping' => __('Jedziesz z pomocą'), 'helpers' => __('Jedzie z pomocą:'),
             'close' => __('Zamknij zgłoszenie'), 'call' => __('Zadzwoń'), 'picked' => __('Wybrane miejsce:'),
             'needPlace' => __('Najpierw wybierz miejsce na mapie.'), 'error' => __('Nie udało się wysłać. Sprawdź dane.'),
-            'locErr' => __('Nie udało się pobrać lokalizacji.'), 'limit' => __('Limit'),
+            'locErr' => __('Nie udało się pobrać lokalizacji.'), 'limit' => __('Limit'), 'confirmed' => __('Potwierdzone przez kierowców:'),
         ]);
         const csrf = document.querySelector('meta[name=csrf-token]').content;
         const map = L.map('k19-map').setView([52.0, 19.4], 6);
@@ -129,6 +129,7 @@
                 if (d.road || r.name) box.append(el('div', [d.road, r.name].filter(Boolean).join(' – ')));
                 if (d.limit) box.append(el('div', T.limit + ': ' + d.limit + (d.problem === 'low_bridge' ? ' m' : ' t')));
                 if (d.note) box.append(el('div', d.note));
+                if (r.confirmations) box.append(el('div', T.confirmed + ' ' + r.confirmations));
             } else if (r.kind === 'fuel') {
                 const d = r.data || {};
                 box.append(el('div', 'Diesel: ' + Number(d.diesel).toFixed(2) + ' ' + d.currency));

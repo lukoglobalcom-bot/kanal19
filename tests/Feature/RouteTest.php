@@ -113,4 +113,25 @@ class RouteTest extends TestCase
         $this->getJson('/trasa/kraj?lat=52.53&lng=13.41')->assertOk()->assertJsonPath('country', 'DE');
         Http::assertSentCount(1);
     }
+
+    public function test_passing_drivers_confirm_or_clear_road_problem(): void
+    {
+        $jam = $this->road('jam', 52.2, 21.0);
+        $author = \App\Models\User::find($jam->user_id);
+        $this->actingAs($author)->postJson('/mapa/zgloszenia/'.$jam->id.'/glos', ['still' => true])->assertForbidden();
+
+        $this->travel(90)->minutes();
+        $this->actingAs($this->driver())->postJson('/mapa/zgloszenia/'.$jam->id.'/glos', ['still' => true])->assertOk();
+        $this->assertTrue($jam->fresh()->expires_at->greaterThan(now()->addMinutes(110)));
+        $this->getJson('/mapa/dane')->assertJsonPath('0.confirmations', 1);
+
+        // jeden „nie ma” nie wystarcza, dwa przeważające – zgłoszenie znika
+        $this->actingAs($this->driver())->postJson('/mapa/zgloszenia/'.$jam->id.'/glos', ['still' => false])->assertOk();
+        $this->assertTrue($jam->fresh()->expires_at->isFuture());
+        $this->actingAs($this->driver())->postJson('/mapa/zgloszenia/'.$jam->id.'/glos', ['still' => false])->assertOk();
+        $this->assertTrue($jam->fresh()->expires_at->isFuture());
+        $this->actingAs($this->driver())->postJson('/mapa/zgloszenia/'.$jam->id.'/glos', ['still' => false])->assertOk();
+        $this->assertFalse($jam->fresh()->expires_at->isFuture());
+        $this->postJson('/mapa/zgloszenia/'.$jam->id.'/glos', ['still' => true])->assertNotFound();
+    }
 }

@@ -102,6 +102,14 @@ class MapReport extends Model
         return $this->hasMany(SosResponse::class);
     }
 
+    public function votes(): HasMany
+    {
+        return $this->hasMany(MapReportVote::class);
+    }
+
+    /** Tyle głosów „nie ma” (przewagą nad „nadal jest”) usuwa utrudnienie z mapy. */
+    public const GONE_VOTES = 2;
+
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('expires_at', '>', now());
