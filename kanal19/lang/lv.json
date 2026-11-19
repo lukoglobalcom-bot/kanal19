@@ -1144,5 +1144,17 @@
   "Powiadomienia SOS włączone.": "SOS paziņojumi ieslēgti.",
   "Powiadomienia są zablokowane w ustawieniach telefonu.": "Paziņojumi ir bloķēti tālruņa iestatījumos.",
   "Promień": "Rādiuss",
-  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Ieslēgts – brīdināsim par SOS rādiusā"
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Ieslēgts – brīdināsim par SOS rādiusā",
+  "Akceptuję": "Es piekrītu",
+  "Konto od": "Konts kopš",
+  "Moje konto": "Mans konts",
+  "Nieprawidłowe hasło.": "Nepareiza parole.",
+  "Rozumiem, że konta i danych nie da się przywrócić.": "Saprotu, ka kontu un datus nevarēs atjaunot.",
+  "Twoje konto i dane zostały usunięte.": "Tavs konts un dati ir dzēsti.",
+  "Usunięcie konta jest nieodwracalne. Usuniemy Twój profil, ogłoszenia, pojazdy, zgłoszenia na mapie, wiadomości CB i powiadomienia.": "Konta dzēšana ir neatgriezeniska. Dzēsīsim tavu profilu, sludinājumus, transportlīdzekļus, kartes ziņojumus, CB ziņas un paziņojumus.",
+  "Usuń konto": "Dzēst kontu",
+  "Usuń konto na zawsze": "Dzēst kontu uz visiem laikiem",
+  "i": "un",
+  "politykę prywatności": "privātuma politiku",
+  "regulamin": "noteikumus"
 }

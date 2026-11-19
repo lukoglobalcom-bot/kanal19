@@ -1144,5 +1144,17 @@
   "Powiadomienia SOS włączone.": "SOS pranešimai įjungti.",
   "Powiadomienia są zablokowane w ustawieniach telefonu.": "Pranešimai užblokuoti telefono nustatymuose.",
   "Promień": "Spindulys",
-  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Įjungta – įspėsime apie SOS spinduliu"
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Įjungta – įspėsime apie SOS spinduliu",
+  "Akceptuję": "Sutinku su",
+  "Konto od": "Paskyra nuo",
+  "Moje konto": "Mano paskyra",
+  "Nieprawidłowe hasło.": "Neteisingas slaptažodis.",
+  "Rozumiem, że konta i danych nie da się przywrócić.": "Suprantu, kad paskyros ir duomenų atkurti nebus galima.",
+  "Twoje konto i dane zostały usunięte.": "Jūsų paskyra ir duomenys ištrinti.",
+  "Usunięcie konta jest nieodwracalne. Usuniemy Twój profil, ogłoszenia, pojazdy, zgłoszenia na mapie, wiadomości CB i powiadomienia.": "Paskyros ištrynimas negrįžtamas. Ištrinsime jūsų profilį, skelbimus, transporto priemones, pranešimus žemėlapyje, CB žinutes ir pranešimų nustatymus.",
+  "Usuń konto": "Ištrinti paskyrą",
+  "Usuń konto na zawsze": "Ištrinti paskyrą visam laikui",
+  "i": "ir",
+  "politykę prywatności": "privatumo politika",
+  "regulamin": "taisyklėmis"
 }

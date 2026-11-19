@@ -1144,5 +1144,17 @@
   "Powiadomienia SOS włączone.": "SOS-notifikationer slået til.",
   "Powiadomienia są zablokowane w ustawieniach telefonu.": "Notifikationer er blokeret i telefonens indstillinger.",
   "Promień": "Radius",
-  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Til – vi advarer dig om SOS inden for"
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Til – vi advarer dig om SOS inden for",
+  "Akceptuję": "Jeg accepterer",
+  "Konto od": "Konto siden",
+  "Moje konto": "Min konto",
+  "Nieprawidłowe hasło.": "Forkert adgangskode.",
+  "Rozumiem, że konta i danych nie da się przywrócić.": "Jeg forstår, at kontoen og data ikke kan gendannes.",
+  "Twoje konto i dane zostały usunięte.": "Din konto og dine data er slettet.",
+  "Usunięcie konta jest nieodwracalne. Usuniemy Twój profil, ogłoszenia, pojazdy, zgłoszenia na mapie, wiadomości CB i powiadomienia.": "Sletning af kontoen kan ikke fortrydes. Vi sletter din profil, annoncer, køretøjer, kortmeldinger, CB-beskeder og notifikationer.",
+  "Usuń konto": "Slet konto",
+  "Usuń konto na zawsze": "Slet konto for altid",
+  "i": "og",
+  "politykę prywatności": "privatlivspolitikken",
+  "regulamin": "vilkårene"
 }

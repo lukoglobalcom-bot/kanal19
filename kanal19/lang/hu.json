@@ -1144,5 +1144,17 @@
   "Powiadomienia SOS włączone.": "SOS-értesítések bekapcsolva.",
   "Powiadomienia są zablokowane w ustawieniach telefonu.": "Az értesítések le vannak tiltva a telefon beállításaiban.",
   "Promień": "Sugár",
-  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Bekapcsolva – figyelmeztetünk az SOS-ekre ebben a sugárban:"
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Bekapcsolva – figyelmeztetünk az SOS-ekre ebben a sugárban:",
+  "Akceptuję": "Elfogadom a",
+  "Konto od": "Fiók kezdete",
+  "Moje konto": "Saját fiók",
+  "Nieprawidłowe hasło.": "Hibás jelszó.",
+  "Rozumiem, że konta i danych nie da się przywrócić.": "Tudomásul veszem, hogy a fiók és az adatok nem állíthatók vissza.",
+  "Twoje konto i dane zostały usunięte.": "A fiókodat és az adataidat töröltük.",
+  "Usunięcie konta jest nieodwracalne. Usuniemy Twój profil, ogłoszenia, pojazdy, zgłoszenia na mapie, wiadomości CB i powiadomienia.": "A fiók törlése végleges. Töröljük a profilodat, hirdetéseidet, járműveidet, térképes bejelentéseidet, CB-üzeneteidet és értesítéseidet.",
+  "Usuń konto": "Fiók törlése",
+  "Usuń konto na zawsze": "Fiók végleges törlése",
+  "i": "és az",
+  "politykę prywatności": "adatvédelmi szabályzatot",
+  "regulamin": "felhasználási feltételeket"
 }

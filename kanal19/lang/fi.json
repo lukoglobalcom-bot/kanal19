@@ -1144,5 +1144,17 @@
   "Powiadomienia SOS włączone.": "SOS-ilmoitukset päällä.",
   "Powiadomienia są zablokowane w ustawieniach telefonu.": "Ilmoitukset on estetty puhelimen asetuksissa.",
   "Promień": "Säde",
-  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Päällä – varoitamme SOS-hälytyksistä säteellä"
+  "Włączone – ostrzeżemy Cię o SOS w promieniu": "Päällä – varoitamme SOS-hälytyksistä säteellä",
+  "Akceptuję": "Hyväksyn",
+  "Konto od": "Tili alkaen",
+  "Moje konto": "Oma tili",
+  "Nieprawidłowe hasło.": "Väärä salasana.",
+  "Rozumiem, że konta i danych nie da się przywrócić.": "Ymmärrän, että tiliä ja tietoja ei voi palauttaa.",
+  "Twoje konto i dane zostały usunięte.": "Tilisi ja tietosi on poistettu.",
+  "Usunięcie konta jest nieodwracalne. Usuniemy Twój profil, ogłoszenia, pojazdy, zgłoszenia na mapie, wiadomości CB i powiadomienia.": "Tilin poistaminen on peruuttamatonta. Poistamme profiilisi, ilmoitukset, ajoneuvot, karttailmoitukset, CB-viestit ja ilmoitusasetukset.",
+  "Usuń konto": "Poista tili",
+  "Usuń konto na zawsze": "Poista tili pysyvästi",
+  "i": "ja",
+  "politykę prywatności": "tietosuojakäytännön",
+  "regulamin": "käyttöehdot"
 }
