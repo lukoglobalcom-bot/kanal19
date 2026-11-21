@@ -5,6 +5,7 @@ use App\Http\Controllers\AdvertiserController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CbController;
+use App\Http\Controllers\CompanyPageController;
 use App\Http\Controllers\PushController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\SitemapController;
@@ -54,6 +55,15 @@ Route::get('/polityka-prywatnosci', [AccountController::class, 'privacy'])->name
 Route::middleware('auth')->group(function () {
     Route::get('/konto', [AccountController::class, 'show'])->name('account');
     Route::delete('/konto', [AccountController::class, 'destroy'])->middleware('throttle:5,1')->name('account.destroy');
+});
+
+// Strony firm i opinie kierowców
+Route::get('/firmy/{company}', [CompanyPageController::class, 'show'])->whereNumber('company')->name('companies.show');
+Route::middleware(['auth', 'phone'])->group(function () {
+    Route::post('/firmy/{company}/opinia', [CompanyPageController::class, 'review'])->whereNumber('company')->middleware('throttle:5,1')->name('companies.review');
+    Route::post('/opinie/{review}/odpowiedz', [CompanyPageController::class, 'reply'])->name('reviews.reply');
+    Route::post('/opinie/{review}/zglos', [CompanyPageController::class, 'report'])->middleware('throttle:20,1')->name('reviews.report');
+    Route::delete('/opinie/{review}', [CompanyPageController::class, 'destroy'])->name('reviews.destroy');
 });
 
 // CB Kanał 19 – tekstowe radio kierowców

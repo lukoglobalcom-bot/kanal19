@@ -54,6 +54,13 @@
         <li>Na CB zabronione są wulgaryzmy, groźby, mowa nienawiści, reklama bez zgody Operatora oraz podawanie danych osobowych innych osób.</li>
     </ol>
 
+    <h2>6a. Opinie o pracodawcach</h2>
+    <ol>
+        <li>Kierowca z potwierdzonym kontem może dodać jedną opinię o firmie i ją później zmienić lub usunąć. Opinia jest podpisana imieniem i pierwszą literą nazwiska.</li>
+        <li>Opinia musi dotyczyć własnych doświadczeń, być prawdziwa i rzeczowa. Zabronione są wulgaryzmy, groźby, ujawnianie danych osobowych innych osób i opinie pisane na zlecenie.</li>
+        <li>Firma może publicznie odpowiedzieć na opinię. Opinia zgłoszona przez 3 użytkowników jest ukrywana do czasu sprawdzenia przez Operatora.</li>
+    </ol>
+
     <h2>7. Treści użytkowników</h2>
     <ol>
         <li>Użytkownik odpowiada za treści, które publikuje, i oświadcza, że ma do nich prawa (w tym do zdjęć pojazdów).</li>

@@ -9,7 +9,7 @@
             <a href="{{ route('offers.show', $offer) }}" class="text-k19-ink no-underline hover:text-k19-red">{{ $offer->title }}</a>
         </h3>
         <div class="flex flex-wrap gap-4 text-[15px] text-k19-muted">
-            <span>{{ $offer->company?->displayName() }}</span>
+            <span>@if ($offer->company)<a href="{{ route('companies.show', $offer->company) }}" class="font-semibold text-k19-ink no-underline hover:text-k19-red">{{ $offer->company->displayName() }}</a>@php($rs = \App\Models\CompanyReview::summaryFor($offer->company->id))@if ($rs) <span class="text-[#8A5A00]" title="{{ __('Opinie kierowców') }}">★ {{ number_format($rs['avg'], 1, ',', '') }} ({{ $rs['count'] }})</span>@endif @endif</span>
             <span>{{ $offer->city }}, {{ $offer->country }}</span>
         </div>
         <div class="flex flex-wrap gap-2">

@@ -288,6 +288,7 @@
     // Szybkie zgłoszenia
     const quick = $('k19-quick');
     $('k19-report-btn')?.addEventListener('click', () => quick.hidden = false);
+    if (new URLSearchParams(location.search).has('zglos') && $('k19-report-btn')) quick.hidden = false; // z dolnego menu „Zgłoś”
     $('k19-quick-close').onclick = () => quick.hidden = true;
     async function sendReport(what) {
         quick.hidden = true;

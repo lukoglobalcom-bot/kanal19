@@ -43,6 +43,13 @@
         <li>Swearing, threats, hate speech, advertising without the Operator's consent and sharing other people's personal data are prohibited on the CB.</li>
     </ol>
 
+    <h2>6a. Employer reviews</h2>
+    <ol>
+        <li>A driver with a verified account may post one review of a company and later change or delete it. The review is signed with the first name and the first letter of the surname.</li>
+        <li>Reviews must describe the author's own experience and be true and factual. Swearing, threats, disclosing other people's personal data and paid reviews are prohibited.</li>
+        <li>The company may reply publicly. A review reported by 3 users is hidden until checked by the Operator.</li>
+    </ol>
+
     <h2>7. User content</h2>
     <ol>
         <li>You are responsible for the content you publish and confirm that you hold the rights to it (including vehicle photos).</li>
