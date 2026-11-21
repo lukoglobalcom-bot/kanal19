@@ -102,6 +102,7 @@
         'sent' => __('Dziękujemy! Zgłoszenie jest na mapie.'), 'err' => __('Nie udało się wysłać. Sprawdź dane.'), 'wait' => __('Czekam na pozycję GPS…'),
         'attention' => __('Uwaga'), 'in' => __('za'), 'listen' => __('Dotknij, aby słuchać'), 'hold' => __('Przytrzymaj i mów'), 'talks' => __('Mówi:'),
         'sos' => __('Kierowca potrzebuje pomocy'), 'meters' => __('metrów'), 'kilometers' => __('kilometrów'),
+        'border' => __('Witamy w kraju: :c. Pamiętaj o wpisie kraju w tachografie na pierwszym postoju.'),
     ]);
     const lang = @js(app()->getLocale());
     const csrf = document.querySelector('meta[name=csrf-token]').content;
@@ -221,7 +222,26 @@
         if (!pos || (countryAt && dist(countryAt, pos) < 20000)) return;
         countryAt = {...pos};
         const r = await fetch(@js(route('route.country')) + `?lat=${pos.lat}&lng=${pos.lng}`, {headers: {Accept: 'application/json'}}).then(r => r.json()).catch(() => ({}));
-        if (r.country) country = r.country;
+        if (!r.country) return;
+        // dziennik krajów (ekran „Do domu”) + przypomnienie o wpisie kraju w tachografie
+        let prevCountry = null;
+        try {
+            const log = JSON.parse(localStorage.getItem('k19-countries') || '{}');
+            const d = new Date(), k = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+            prevCountry = localStorage.getItem('k19-last-country');
+            log[k] = Array.from(new Set([...(log[k] || []), r.country]));
+            const cut = new Date(Date.now() - 400 * 864e5).toISOString().slice(0, 10);
+            Object.keys(log).forEach(x => { if (x < cut) delete log[x]; });
+            localStorage.setItem('k19-countries', JSON.stringify(log));
+            localStorage.setItem('k19-last-country', r.country);
+        } catch (e) {}
+        if (prevCountry && prevCountry !== r.country) {
+            let name = r.country;
+            try { name = new Intl.DisplayNames([lang], {type: 'region'}).of(r.country) || r.country; } catch (e) {}
+            status('📟 ' + T.border.replace(':c', name), 12000);
+            if (sound) { beep(); say(T.border.replace(':c', name)); }
+        }
+        country = r.country;
     }
     if (!navigator.geolocation) status(T.noGps);
     else navigator.geolocation.watchPosition(p => {

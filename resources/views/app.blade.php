@@ -2,6 +2,7 @@
     $tiles = [
         ['route' => 'drive', 'icon' => '🚛', 'label' => __('Tryb jazdy'), 'sub' => __('Mapa, ostrzeżenia, CB'), 'class' => 'bg-k19-ink text-white col-span-2 min-h-36'],
         ['route' => 'pause', 'icon' => '☕', 'label' => __('Pauza'), 'sub' => __('Czas jazdy i przerwy'), 'class' => 'bg-white text-k19-ink'],
+        ['route' => 'home.trip', 'icon' => '🏠', 'label' => __('Do domu'), 'sub' => __('Dni do zjazdu, „Wszystko OK”'), 'class' => 'bg-white text-k19-ink'],
         ['route' => 'map.sos', 'icon' => '🆘', 'label' => 'SOS', 'sub' => __('Wezwij pomoc'), 'class' => 'bg-k19-red text-white col-span-2 min-h-36'],
         ['route' => 'map.index', 'icon' => '🅿', 'label' => __('Parkingi'), 'sub' => __('Wolne miejsca'), 'class' => 'bg-white text-k19-ink'],
         ['route' => 'map.index', 'icon' => '⛽', 'label' => __('Paliwo'), 'sub' => __('Ceny od kierowców'), 'class' => 'bg-white text-k19-ink'],
