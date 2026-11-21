@@ -1228,5 +1228,17 @@
   "Zjazd minął – ustaw nowe daty.": "A hazatérés dátuma elmúlt – állíts be új dátumokat.",
   "dni": "nap",
   "dzień trasy :d z :t": ":t napból a(z) :d.",
-  "wysłane z kanal19.pl": "küldve a kanal19.pl-ről"
+  "wysłane z kanal19.pl": "küldve a kanal19.pl-ről",
+  "LNG (za kg)": "LNG (kg-onként)",
+  "Nie zrozumiałem, spróbuj jeszcze raz albo wybierz przycisk.": "Nem értettem – próbáld újra, vagy koppints egy gombra.",
+  "Parking: brak miejsc": "Parkoló: nincs hely",
+  "Parking: są miejsca": "Parkoló: van hely",
+  "Powiedz, co widzisz": "Mondd, mit látsz",
+  "Przeszkoda na drodze": "Akadály az úton",
+  "Są wolne miejsca": "Van szabad hely",
+  "Słucham… powiedz np. „korek”, „wypadek”, „kontrola”.": "Figyelek… mondd pl.: „dugó”, „baleset”, „rendőr”.",
+  "Uwaga – kradzieże": "Figyelem – lopások",
+  "Zgłaszam.": "Bejelentem.",
+  "busy": "kisteherautók",
+  "solówki": "szóló teherautók"
 }

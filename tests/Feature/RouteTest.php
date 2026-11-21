@@ -134,4 +134,27 @@ class RouteTest extends TestCase
         $this->assertFalse($jam->fresh()->expires_at->isFuture());
         $this->postJson('/mapa/zgloszenia/'.$jam->id.'/glos', ['still' => true])->assertNotFound();
     }
+
+    public function test_parking_counts_tags_status_and_lng_fuel(): void
+    {
+        $this->actingAs($this->driver())->postJson('/mapa/zgloszenia', [
+            'kind' => 'parking', 'lat' => 52.1, 'lng' => 20.1, 'country' => 'PL',
+            'free_truck' => 3, 'free_rigid' => 1, 'free_van' => 0, 'free_bus' => 12, 'tags' => ['lit', 'theft'],
+        ])->assertOk();
+        $d = MapReport::latest('id')->first()->data;
+        $this->assertSame(['lit', 'theft'], $d['tags']);
+        $this->assertSame(12, $d['free_bus']);
+        $this->postJson('/mapa/zgloszenia', ['kind' => 'parking', 'lat' => 52.1, 'lng' => 20.1, 'country' => 'PL', 'tags' => ['pool']])->assertUnprocessable();
+        $this->postJson('/mapa/zgloszenia', ['kind' => 'parking', 'lat' => 52.1, 'lng' => 20.1, 'country' => 'PL', 'status' => 'none', 'free_truck' => 0])->assertOk();
+        $this->assertSame('none', MapReport::latest('id')->first()->data['status']);
+
+        $this->postJson('/mapa/zgloszenia', ['kind' => 'fuel', 'lat' => 52.1, 'lng' => 20.1, 'country' => 'DE', 'diesel' => 1.69, 'lng_price' => 1.35])->assertOk();
+        $fuel = MapReport::latest('id')->first();
+        $this->assertEquals(1.35, $fuel->data['lng_price']);
+        $this->assertEquals(20.1, $fuel->lng);
+        $this->assertSame('EUR', $fuel->data['currency']);
+
+        $this->postJson('/mapa/zgloszenia', ['kind' => 'road', 'lat' => 52.1, 'lng' => 20.1, 'country' => 'PL', 'problem' => 'obstacle'])->assertOk();
+        $this->assertTrue(MapReport::latest('id')->first()->expires_at->lessThan(now()->addHours(3)));
+    }
 }

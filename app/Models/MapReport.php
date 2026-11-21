@@ -16,6 +16,14 @@ class MapReport extends Model
     /** Ile godzin zgłoszenie jest widoczne. */
     public const TTL_HOURS = ['parking' => 6, 'fuel' => 168, 'sos' => 6, 'road' => 24];
 
+    /** Oznaczenia parkingu podawane przez kierowców. */
+    public const PARKING_TAGS = [
+        'lit' => ['icon' => '💡', 'label' => 'Oświetlony'],
+        'guarded' => ['icon' => '🛡', 'label' => 'Strzeżony'],
+        'shower' => ['icon' => '🚿', 'label' => 'Prysznic działa'],
+        'theft' => ['icon' => '⚠', 'label' => 'Uwaga – kradzieże'],
+    ];
+
     /** Rodzaje utrudnień: nazwa, czas widoczności (h), czy planer trasy ma omijać to miejsce. */
     public const ROAD_PROBLEMS = [
         'closure' => ['label' => 'Droga zamknięta', 'ttl' => 48, 'avoid' => true],
@@ -23,6 +31,7 @@ class MapReport extends Model
         'accident' => ['label' => 'Wypadek', 'ttl' => 3, 'avoid' => false],
         'jam' => ['label' => 'Korek', 'ttl' => 2, 'avoid' => false],
         'police' => ['label' => 'Kontrola (ITD / policja)', 'ttl' => 1, 'avoid' => false],
+        'obstacle' => ['label' => 'Przeszkoda na drodze', 'ttl' => 2, 'avoid' => false],
         'low_bridge' => ['label' => 'Niski wiadukt', 'ttl' => 720, 'avoid' => true],
         'weight_limit' => ['label' => 'Ograniczenie masy', 'ttl' => 720, 'avoid' => true],
         'truck_ban' => ['label' => 'Zakaz dla ciężarówek', 'ttl' => 720, 'avoid' => true],
