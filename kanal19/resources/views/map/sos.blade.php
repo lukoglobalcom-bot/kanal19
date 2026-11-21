@@ -1,6 +1,7 @@
 @php($canReport = auth()->check() && (auth()->user()->isAdmin() || auth()->user()->hasVerifiedPhone()))
 <x-layouts.app title="SOS">
     <div class="mx-auto max-w-xl px-4 pt-8 sm:px-6">
+        <x-banner name="N03-sos" fallback="A10-pomoc-na-trasie" :alt="'SOS'" class="mb-5 max-h-[320px] object-cover" />
         <h1 class="font-display text-5xl font-extrabold">SOS</h1>
         <p class="mt-1 text-k19-muted">{{ __('Wezwij pomoc innych kierowców jednym przyciskiem. Twoja lokalizacja pojawi się na mapie na 6 godzin.') }}</p>
 

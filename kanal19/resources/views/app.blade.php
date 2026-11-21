@@ -16,6 +16,7 @@
 @endphp
 <x-layouts.app :title="__('Aplikacja')">
     <div class="mx-auto max-w-xl px-4 pt-6 sm:px-6">
+        <x-banner name="N21-aplikacja-za-darmo" fallback="A05-kierowca-w-kabinie" :alt="__('Aplikacja Kanał 19 – za darmo')" class="mb-5" />
         <div class="grid grid-cols-2 gap-3">
             @foreach ($tiles as $t)
                 <a href="{{ route($t['route']) }}" class="{{ $t['class'] }} flex min-h-32 flex-col items-center justify-center gap-1 rounded-2xl border-2 border-k19-ink/10 p-3 text-center no-underline shadow-sm active:scale-[.98]">
