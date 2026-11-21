@@ -4,7 +4,8 @@
     $voice = $canReport && \App\Services\VoiceToken::enabled();
     $quick = [
         'jam' => ['🚗', __('Korek')], 'accident' => ['💥', __('Wypadek')], 'police' => ['👮', __('Kontrola')],
-        'roadwork' => ['🚧', __('Roboty drogowe')], 'closure' => ['⛔', __('Droga zamknięta')],
+        'roadwork' => ['🚧', __('Roboty drogowe')], 'closure' => ['⛔', __('Droga zamknięta')], 'obstacle' => ['🪨', __('Przeszkoda')],
+        'park_some' => ['🅿', __('Parking: są miejsca')], 'park_none' => ['🅿⛔', __('Parking: brak miejsc')],
     ];
 @endphp
 <!doctype html>
@@ -68,6 +69,7 @@
         {{-- Panel szybkiego zgłoszenia --}}
         <div id="k19-quick" hidden class="absolute inset-x-0 bottom-0 z-[450] rounded-t-3xl bg-k19-ink p-4 shadow-2xl">
             <p class="mb-3 text-center font-display text-2xl font-bold">{{ __('Co jest na drodze?') }}</p>
+            <button type="button" id="k19-voice-report" hidden class="k19-q mb-3 flex w-full items-center justify-center gap-2 rounded-2xl bg-k19-red font-display text-xl font-bold">🎤 {{ __('Powiedz, co widzisz') }}</button>
             <div class="grid grid-cols-2 gap-3">
                 @foreach ($quick as $k => [$ico, $label])
                     <button type="button" data-report="{{ $k }}" class="k19-q flex items-center justify-center gap-2 rounded-2xl bg-white font-display text-xl font-bold text-k19-ink active:scale-95">{{ $ico }} {{ $label }}</button>
@@ -102,6 +104,7 @@
         'sent' => __('Dziękujemy! Zgłoszenie jest na mapie.'), 'err' => __('Nie udało się wysłać. Sprawdź dane.'), 'wait' => __('Czekam na pozycję GPS…'),
         'attention' => __('Uwaga'), 'in' => __('za'), 'listen' => __('Dotknij, aby słuchać'), 'hold' => __('Przytrzymaj i mów'), 'talks' => __('Mówi:'),
         'sos' => __('Kierowca potrzebuje pomocy'), 'meters' => __('metrów'), 'kilometers' => __('kilometrów'),
+        'listenNow' => __('Słucham… powiedz np. „korek”, „wypadek”, „kontrola”.'), 'got' => __('Zgłaszam.'), 'notUnderstood' => __('Nie zrozumiałem, spróbuj jeszcze raz albo wybierz przycisk.'),
         'border' => __('Witamy w kraju: :c. Pamiętaj o wpisie kraju w tachografie na pierwszym postoju.'),
     ]);
     const lang = @js(app()->getLocale());
@@ -130,7 +133,7 @@
 
     // Zgłoszenia innych kierowców
     const icons = {road: '⚠', sos: '🆘', parking: 'P', fuel: '⛽'};
-    const probIcons = {jam: '🚗', accident: '💥', police: '👮', roadwork: '🚧', closure: '⛔', low_bridge: '🌉', weight_limit: '⚖', truck_ban: '🚫'};
+    const probIcons = {jam: '🚗', accident: '💥', police: '👮', roadwork: '🚧', closure: '⛔', obstacle: '🪨', low_bridge: '🌉', weight_limit: '⚖', truck_ban: '🚫'};
     const layer = L.layerGroup().addTo(map);
     let reports = [];
     async function loadReports() {
@@ -286,16 +289,54 @@
     const quick = $('k19-quick');
     $('k19-report-btn')?.addEventListener('click', () => quick.hidden = false);
     $('k19-quick-close').onclick = () => quick.hidden = true;
-    document.querySelectorAll('[data-report]').forEach(b => b.onclick = async () => {
+    async function sendReport(what) {
         quick.hidden = true;
         if (!pos) return status(T.wait, 3000);
         await updateCountry();
-        const r = await fetch(@js(route('map.store')), {method: 'POST', headers: {'X-CSRF-TOKEN': csrf, Accept: 'application/json', 'Content-Type': 'application/json'},
-            body: JSON.stringify({kind: 'road', problem: b.dataset.report, lat: +pos.lat.toFixed(6), lng: +pos.lng.toFixed(6), country: country || 'PL'})});
+        const where = {lat: +pos.lat.toFixed(6), lng: +pos.lng.toFixed(6), country: country || 'PL'};
+        const body = what.startsWith('park_')
+            ? {kind: 'parking', status: what === 'park_none' ? 'none' : 'some', ...(what === 'park_none' ? {free_truck: 0} : {}), ...where}
+            : {kind: 'road', problem: what, ...where};
+        const r = await fetch(@js(route('map.store')), {method: 'POST', headers: {'X-CSRF-TOKEN': csrf, Accept: 'application/json', 'Content-Type': 'application/json'}, body: JSON.stringify(body)});
         const d = await r.json().catch(() => ({}));
         status(r.ok ? T.sent : (d.message || T.err), 3000);
         if (r.ok) loadReports();
-    });
+    }
+    document.querySelectorAll('[data-report]').forEach(b => b.onclick = () => sendReport(b.dataset.report));
+
+    // Zgłoszenie głosem: „korek”, „wypadek”, „kontrola”… (rozpoznawanie mowy w przeglądarce)
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const voiceBtn = $('k19-voice-report');
+    const WORDS = {
+        jam: ['korek', 'zator', 'stoi', 'jam', 'traffic', 'stau', 'затор', 'пробк', 'kolona', 'zápch', 'bouchon', 'atasco', 'coda', 'file', 'dugó', 'kamšt', 'sastrēg', 'ummik', 'ruuhka', 'bilkö', 'gužv', 'задръств', 'μποτιλιάρ', 'κίνηση', 'ambuteiaj', 'trânsito', 'fila de', 'zastoj', 'kø på'],
+        accident: ['wypadek', 'kolizj', 'stłuczk', 'accident', 'crash', 'unfall', 'аварі', 'дтп', 'nehod', 'accidente', 'incidente', 'baleset', 'avarij', 'nesreč', 'ongeval', 'olyck', 'onnettomuu', 'õnnetus', 'катастроф', 'катастроф', 'ατύχημα', 'acidente', 'ulykke', 'nesreć', 'avarie'],
+        police: ['kontrol', 'policj', 'itd', 'inspekc', 'police', 'polizei', 'поліці', 'контрол', 'polici', 'policía', 'polizia', 'rendőr', 'polit', 'gendarm', 'politie', 'poliisi', 'полиция', 'τροχαί', 'αστυνομ', 'poliți', 'polícia', 'politi', 'policij'],
+        roadwork: ['robot', 'remont', 'roadwork', 'baustelle', 'ремонт', 'oprav', 'obras', 'lavori', 'travaux', 'útépít', 'werkzaam', 'vägarbete', 'tietyö', 'teetööd', 'radovi', 'ремонт на', 'έργα', 'lucrări', 'obras', 'vejarbejde', 'dela na cesti', 'radovi na'],
+        closure: ['zamknię', 'zamkniet', 'closed', 'gesperrt', 'sperrung', 'перекрит', 'uzavř', 'cortad', 'chiusa', 'fermée', 'lezár', 'afgesloten', 'avstängd', 'suljettu', 'zatvoren', 'затворен', 'κλειστ', 'închis', 'fechad', 'lukket', 'zaprt', 'zatvoren'],
+        obstacle: ['przeszkod', 'obstacle', 'hindernis', 'перешкод', 'překážk', 'obstáculo', 'ostacolo', 'akadály', 'obstakel', 'prepreka', 'kamień', 'opona', 'препятств', 'εμπόδιο', 'obstacol', 'obstáculo', 'forhindring', 'ovira'],
+        park_none: ['brak miejsc', 'pełny', 'pelny', 'parking full', 'voll', 'немає місць', 'plno', 'complet', 'lleno', 'pieno', 'megtelt', 'vol parkeer'],
+        park_some: ['są miejsca', 'sa miejsca', 'wolne miejsc', 'parking free', 'frei', 'є місця', 'volno', 'libre', 'liberi', 'szabad', 'ledig'],
+    };
+    function guess(text) {
+        const t = text.toLowerCase();
+        for (const [k, words] of Object.entries(WORDS)) if (words.some(w => t.includes(w))) return k;
+        return null;
+    }
+    if (SR && voiceBtn) {
+        voiceBtn.hidden = false;
+        voiceBtn.onclick = () => {
+            const rec = new SR(); rec.lang = lang; rec.interimResults = false; rec.maxAlternatives = 3;
+            status('🎤 ' + T.listenNow);
+            rec.onresult = e => {
+                const alts = Array.from(e.results[0]).map(a => a.transcript);
+                const what = alts.map(guess).find(Boolean);
+                if (what) { if (sound) say(T.got); sendReport(what); }
+                else status('❓ ' + T.notUnderstood + ' „' + alts[0] + '”', 4000);
+            };
+            rec.onerror = () => status(T.notUnderstood, 3000);
+            try { rec.start(); } catch (err) { status(T.notUnderstood, 3000); }
+        };
+    }
 
     // CB: dotknij = słuchaj, przytrzymaj = mów
     const ptt = $('k19-ptt');

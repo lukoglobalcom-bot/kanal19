@@ -1228,5 +1228,17 @@
   "Zjazd minął – ustaw nowe daty.": "Atgriešanās datums pagājis – iestati jaunus datumus.",
   "dni": "dienas",
   "dzień trasy :d z :t": "diena :d no :t",
-  "wysłane z kanal19.pl": "nosūtīts no kanal19.pl"
+  "wysłane z kanal19.pl": "nosūtīts no kanal19.pl",
+  "LNG (za kg)": "LNG (par kg)",
+  "Nie zrozumiałem, spróbuj jeszcze raz albo wybierz przycisk.": "Nesapratu – mēģini vēlreiz vai pieskaries pogai.",
+  "Parking: brak miejsc": "Stāvvieta: nav vietu",
+  "Parking: są miejsca": "Stāvvieta: ir vietas",
+  "Powiedz, co widzisz": "Pasaki, ko redzi",
+  "Przeszkoda na drodze": "Šķērslis uz ceļa",
+  "Są wolne miejsca": "Ir brīvas vietas",
+  "Słucham… powiedz np. „korek”, „wypadek”, „kontrola”.": "Klausos… saki, piem., “sastrēgums”, “avārija”, “policija”.",
+  "Uwaga – kradzieże": "Uzmanību – zādzības",
+  "Zgłaszam.": "Ziņoju.",
+  "busy": "mikroautobusi",
+  "solówki": "kravas auto"
 }

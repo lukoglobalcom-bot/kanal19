@@ -50,10 +50,22 @@
                         </div>
                         <fieldset data-for="parking" class="flex flex-col gap-3">
                             <legend class="k19-label">{{ __('Wolne miejsca teraz') }}</legend>
-                            <div class="grid grid-cols-3 gap-2">
-                                <label class="text-sm font-semibold">{{ __('Ciężarowe') }}<input name="free_truck" type="number" min="0" max="999" class="k19-input mt-1"></label>
-                                <label class="text-sm font-semibold">{{ __('Autobusy') }}<input name="free_bus" type="number" min="0" max="999" class="k19-input mt-1"></label>
-                                <label class="text-sm font-semibold">{{ __('Osobowe') }}<input name="free_car" type="number" min="0" max="999" class="k19-input mt-1"></label>
+                            <div class="flex gap-2">
+                                <button type="button" data-park-quick="0" class="k19-pill flex-1 justify-center">⛔ {{ __('Brak miejsc') }}</button>
+                                <button type="button" data-park-quick="10" class="k19-pill flex-1 justify-center">✅ {{ __('Dużo miejsc (10+)') }}</button>
+                            </div>
+                            @foreach (['free_truck' => __('Ciągnik z naczepą'), 'free_rigid' => __('Solówka'), 'free_van' => __('Bus do 3,5 t'), 'free_bus' => __('Autobus')] as $f => $lbl)
+                                <div class="flex items-center gap-2">
+                                    <label for="r-{{ $f }}" class="flex-1 text-sm font-semibold">{{ $lbl }}</label>
+                                    <button type="button" data-step="-1" data-for-input="r-{{ $f }}" class="size-11 rounded-xl border border-k19-line text-xl font-bold" aria-label="−1 {{ $lbl }}">−</button>
+                                    <input id="r-{{ $f }}" name="{{ $f }}" type="number" min="0" max="999" inputmode="numeric" class="k19-input w-20 text-center">
+                                    <button type="button" data-step="1" data-for-input="r-{{ $f }}" class="size-11 rounded-xl border border-k19-line text-xl font-bold" aria-label="+1 {{ $lbl }}">+</button>
+                                </div>
+                            @endforeach
+                            <div class="flex flex-wrap gap-2">
+                                @foreach ($M::PARKING_TAGS as $k => $t)
+                                    <label class="k19-pill"><input type="checkbox" name="tags[]" value="{{ $k }}" class="sr-only"><span>{{ $t['icon'] }} {{ __($t['label']) }}</span></label>
+                                @endforeach
                             </div>
                             <label class="flex items-center gap-2"><input type="checkbox" name="paid" value="1" class="size-[18px] accent-k19-red">{{ __('Parking płatny') }}</label>
                             <input name="note" maxlength="200" class="k19-input" placeholder="{{ __('Uwagi, np. prysznice, ochrona') }}" aria-label="{{ __('Uwagi') }}">
@@ -63,6 +75,7 @@
                             <div class="grid grid-cols-2 gap-2">
                                 <label class="text-sm font-semibold">Diesel<input name="diesel" type="number" step="0.01" min="0" class="k19-input mt-1"></label>
                                 <label class="text-sm font-semibold">AdBlue<input name="adblue" type="number" step="0.01" min="0" class="k19-input mt-1"></label>
+                                <label class="text-sm font-semibold">{{ __('LNG (za kg)') }}<input name="lng_price" type="number" step="0.01" min="0" class="k19-input mt-1"></label>
                             </div>
                         </fieldset>
                         <fieldset data-for="road" class="hidden flex-col gap-3">
@@ -100,7 +113,8 @@
             'help' => __('Jadę pomóc'), 'helping' => __('Jedziesz z pomocą'), 'helpers' => __('Jedzie z pomocą:'),
             'close' => __('Zamknij zgłoszenie'), 'call' => __('Zadzwoń'), 'picked' => __('Wybrane miejsce:'),
             'needPlace' => __('Najpierw wybierz miejsce na mapie.'), 'error' => __('Nie udało się wysłać. Sprawdź dane.'),
-            'locErr' => __('Nie udało się pobrać lokalizacji.'), 'limit' => __('Limit'), 'confirmed' => __('Potwierdzone przez kierowców:'),
+            'locErr' => __('Nie udało się pobrać lokalizacji.'), 'limit' => __('Limit'), 'rigid' => __('solówki'), 'van' => __('busy'),
+            'sNone' => __('Brak miejsc'), 'sSome' => __('Są wolne miejsca'), 'sMany' => __('Dużo miejsc (10+)'), 'confirmed' => __('Potwierdzone przez kierowców:'),
         ]);
         const csrf = document.querySelector('meta[name=csrf-token]').content;
         const map = L.map('k19-map').setView([52.0, 19.4], 6);
@@ -122,7 +136,11 @@
             box.append(el('strong', r.kind === 'sos' ? 'SOS – ' + r.problem_label : r.kind === 'road' ? '⚠ ' + r.problem_label : (r.name || (r.kind === 'fuel' ? '⛽' : 'P'))));
             if (r.kind === 'parking') {
                 const d = r.data || {};
-                box.append(el('div', T.free + ': ' + [[T.trucks, d.free_truck], [T.buses, d.free_bus], [T.cars, d.free_car]].filter(x => x[1] !== null && x[1] !== undefined).map(x => x[0] + ' ' + x[1]).join(', ')));
+                const n = v => v >= 10 ? '10+' : v;
+                const counts = [[T.trucks, d.free_truck], [T.rigid, d.free_rigid], [T.van, d.free_van], [T.buses, d.free_bus], [T.cars, d.free_car]].filter(x => x[1] !== null && x[1] !== undefined);
+                if (counts.length) box.append(el('div', T.free + ': ' + counts.map(x => x[0] + ' ' + n(x[1])).join(', ')));
+                if (d.status) box.append(el('div', {none: '⛔ ' + T.sNone, some: '🅿 ' + T.sSome, many: '✅ ' + T.sMany}[d.status]));
+                if (d.tags?.length) box.append(el('div', d.tags.map(t => tagNames[t]).filter(Boolean).join(' · ')));
                 box.append(el('div', d.paid ? T.paid : T.freePark));
                 if (d.note) box.append(el('div', d.note));
             } else if (r.kind === 'road') {
@@ -134,6 +152,7 @@
             } else if (r.kind === 'fuel') {
                 const d = r.data || {};
                 box.append(el('div', 'Diesel: ' + Number(d.diesel).toFixed(2) + ' ' + d.currency));
+                if (d.lng_price) box.append(el('div', 'LNG: ' + Number(d.lng_price).toFixed(2) + ' ' + d.currency + '/kg'));
                 if (d.adblue) box.append(el('div', 'AdBlue: ' + Number(d.adblue).toFixed(2) + ' ' + d.currency));
             } else {
                 if (r.message) box.append(el('div', r.message));
@@ -153,6 +172,15 @@
             return box;
         }
 
+        const tagNames = @js(collect($M::PARKING_TAGS)->map(fn ($t) => $t['icon'].' '.__($t['label'])));
+        // liczniki +/− i szybkie przyciski parkingu
+        document.querySelectorAll('[data-step]').forEach(b => b.addEventListener('click', () => {
+            const i = document.getElementById(b.dataset.forInput); i.value = Math.max(0, Math.min(999, (+i.value || 0) + +b.dataset.step));
+        }));
+        document.querySelectorAll('[data-park-quick]').forEach(b => b.addEventListener('click', () => {
+            const v = b.dataset.parkQuick; document.getElementById('r-free_truck').value = v;
+            if (v === '0') ['r-free_rigid', 'r-free_van', 'r-free_bus'].forEach(id => document.getElementById(id).value = 0);
+        }));
         let focusId = new URLSearchParams(location.search).get('sos'); // z powiadomienia SOS
         async function load() {
             const data = await fetch(@js(route('map.data')), {headers: {'Accept': 'application/json'}}).then(r => r.json()).catch(() => []);
@@ -190,8 +218,11 @@
             form.addEventListener('submit', async e => {
                 e.preventDefault();
                 if (!picked) return alertMsg(T.needPlace, false);
-                const fd = Object.fromEntries(new FormData(form).entries());
+                const raw = new FormData(form);
+                const tags = raw.getAll('tags[]'); raw.delete('tags[]');
+                const fd = Object.fromEntries(raw.entries());
                 Object.keys(fd).forEach(k => fd[k] === '' && delete fd[k]);
+                if (fd.kind === 'parking' && tags.length) fd.tags = tags;
                 const res = await post(@js(route('map.store')), {...fd, ...picked});
                 if (res.ok) { alertMsg(res.message, true); form.reset(); sync(); load(); }
                 else alertMsg(res.message || T.error, false);

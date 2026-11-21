@@ -1228,5 +1228,17 @@
   "Zjazd minął – ustaw nowe daty.": "Kojusõidu kuupäev on möödas – määra uued kuupäevad.",
   "dni": "päeva",
   "dzień trasy :d z :t": "päev :d / :t",
-  "wysłane z kanal19.pl": "saadetud kanal19.pl-ist"
+  "wysłane z kanal19.pl": "saadetud kanal19.pl-ist",
+  "LNG (za kg)": "LNG (kg kohta)",
+  "Nie zrozumiałem, spróbuj jeszcze raz albo wybierz przycisk.": "Ei saanud aru – proovi uuesti või vajuta nuppu.",
+  "Parking: brak miejsc": "Parkla: kohti pole",
+  "Parking: są miejsca": "Parkla: kohti on",
+  "Powiedz, co widzisz": "Ütle, mida näed",
+  "Przeszkoda na drodze": "Takistus teel",
+  "Są wolne miejsca": "Vabu kohti on",
+  "Słucham… powiedz np. „korek”, „wypadek”, „kontrola”.": "Kuulan… ütle nt „ummik“, „õnnetus“, „politsei“.",
+  "Uwaga – kradzieże": "Ettevaatust – vargused",
+  "Zgłaszam.": "Teatan.",
+  "busy": "kaubikud",
+  "solówki": "soloveokid"
 }

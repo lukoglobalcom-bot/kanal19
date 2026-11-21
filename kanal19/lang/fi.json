@@ -1228,5 +1228,17 @@
   "Zjazd minął – ustaw nowe daty.": "Kotiinpaluupäivä on mennyt – aseta uudet päivät.",
   "dni": "päivää",
   "dzień trasy :d z :t": "päivä :d/:t",
-  "wysłane z kanal19.pl": "lähetetty kanal19.pl:stä"
+  "wysłane z kanal19.pl": "lähetetty kanal19.pl:stä",
+  "LNG (za kg)": "LNG (per kg)",
+  "Nie zrozumiałem, spróbuj jeszcze raz albo wybierz przycisk.": "En ymmärtänyt – yritä uudelleen tai napauta painiketta.",
+  "Parking: brak miejsc": "Pysäköinti: ei paikkoja",
+  "Parking: są miejsca": "Pysäköinti: paikkoja vapaana",
+  "Powiedz, co widzisz": "Sano, mitä näet",
+  "Przeszkoda na drodze": "Este tiellä",
+  "Są wolne miejsca": "Paikkoja vapaana",
+  "Słucham… powiedz np. „korek”, „wypadek”, „kontrola”.": "Kuuntelen… sano esim. ”ruuhka”, ”onnettomuus”, ”poliisi”.",
+  "Uwaga – kradzieże": "Varoitus – varkauksia",
+  "Zgłaszam.": "Ilmoitan.",
+  "busy": "pakettiautot",
+  "solówki": "kuorma-autot"
 }

@@ -1228,5 +1228,17 @@
   "Zjazd minął – ustaw nowe daty.": "Hemkomstdatumet har passerat – ange nya datum.",
   "dni": "dagar",
   "dzień trasy :d z :t": "dag :d av :t",
-  "wysłane z kanal19.pl": "skickat från kanal19.pl"
+  "wysłane z kanal19.pl": "skickat från kanal19.pl",
+  "LNG (za kg)": "LNG (per kg)",
+  "Nie zrozumiałem, spróbuj jeszcze raz albo wybierz przycisk.": "Jag förstod inte – försök igen eller tryck på en knapp.",
+  "Parking: brak miejsc": "Parkering: fullt",
+  "Parking: są miejsca": "Parkering: lediga platser",
+  "Powiedz, co widzisz": "Säg vad du ser",
+  "Przeszkoda na drodze": "Hinder på vägen",
+  "Są wolne miejsca": "Lediga platser",
+  "Słucham… powiedz np. „korek”, „wypadek”, „kontrola”.": "Jag lyssnar… säg t.ex. ”bilkö”, ”olycka”, ”polis”.",
+  "Uwaga – kradzieże": "Varning – stölder",
+  "Zgłaszam.": "Rapporterar.",
+  "busy": "skåpbilar",
+  "solówki": "sololastbilar"
 }
