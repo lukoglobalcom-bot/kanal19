@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ isset($title) ? $title.' – ' : '' }}kanal19.pl – {{ __('Portal dla kierowców') }}</title>
+    @php($metaDescription = isset($description) ? \Illuminate\Support\Str::limit(strip_tags($description), 160) : __('Praca dla kierowców, giełda pojazdów, mapa parkingów i cen paliwa, CB, SOS i licznik czasu jazdy – za darmo, w 25 językach.'))
+    <meta name="description" content="{{ $metaDescription }}">
+    <meta property="og:site_name" content="Kanał 19 – kanal19.pl">
+    <meta property="og:title" content="{{ $title ?? 'Kanał 19 – '.__('Portal dla kierowców') }}">
+    <meta property="og:description" content="{{ $metaDescription }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ $ogImage ?? asset('images/icon-512.png') }}">
+    <link rel="canonical" href="{{ url()->current() }}">
+    @stack('head')
     <link rel="icon" href="{{ asset('favicon-32.png') }}" type="image/png">
     <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">
     <link rel="manifest" href="{{ asset('manifest.webmanifest') }}">

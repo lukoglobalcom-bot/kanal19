@@ -1,4 +1,4 @@
-<x-layouts.app :title="$post->title">
+<x-layouts.app :title="$post->title" :description="$post->excerpt ?: $post->body">
     <article class="mx-auto max-w-3xl px-4 pt-10 sm:px-6">
         <a href="{{ route('posts.index', ['kategoria' => $post->category]) }}" class="font-semibold text-k19-red">← {{ __(\App\Models\Post::CATEGORIES[$post->category] ?? '') }}</a>
         @unless ($post->published_at)<p class="mt-3 rounded-xl bg-[#FFF1D6] p-3 font-semibold text-[#8A5A00]">{{ __('Szkic – widoczny tylko dla administratora.') }}</p>@endunless

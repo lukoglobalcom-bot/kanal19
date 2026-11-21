@@ -1,2 +1,14 @@
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /firma
+Disallow: /kierowca
+Disallow: /reklamodawca
+Disallow: /konto
+Disallow: /weryfikacja
+Disallow: /powiadomienia
+Disallow: /mapa/dane
+Disallow: /cb/wiadomosci
+Disallow: /trasa/szukaj
+Disallow: /trasa/kraj
+
+Sitemap: https://kanal19.pl/sitemap.xml
