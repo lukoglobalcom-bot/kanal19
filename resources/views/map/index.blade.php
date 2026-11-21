@@ -6,6 +6,7 @@
     <div class="mx-auto max-w-6xl px-4 pt-8 sm:px-6">
         <div class="flex flex-wrap items-end justify-between gap-4">
             <div>
+                <x-banner name="N14-parkingi" fallback="A02-parking-billboard" :alt="__('Mapa kierowców')" class="mb-5 max-h-[320px] object-cover" />
                 <h1 class="font-display text-[clamp(30px,4vw,44px)] font-extrabold">{{ __('Mapa kierowców') }}</h1>
                 <p class="text-k19-muted">{{ __('Wolne miejsca na parkingach, ceny paliwa, utrudnienia i wezwania SOS – zgłaszane przez kierowców.') }}</p>
             </div>

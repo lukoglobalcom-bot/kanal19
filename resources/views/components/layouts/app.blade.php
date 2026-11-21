@@ -12,11 +12,11 @@
     <meta property="og:description" content="{{ $metaDescription }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:image" content="{{ $ogImage ?? asset('images/icon-512.png') }}">
+    <meta property="og:image" content="{{ $ogImage ?? \App\Support\Graphics::banner('N01-portal', 'A01-ciezarowki-autostrada') ?? asset('images/icon-512.png') }}">
     <link rel="canonical" href="{{ url()->current() }}">
     @stack('head')
-    <link rel="icon" href="{{ asset('favicon-32.png') }}" type="image/png">
-    <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">
+    <link rel="icon" href="{{ \App\Support\Graphics::asset('kanal19-ikona-32.png') ?? asset('favicon-32.png') }}" type="image/png">
+    <link rel="apple-touch-icon" href="{{ \App\Support\Graphics::asset('kanal19-ikona-180.png') ?? asset('images/apple-touch-icon.png') }}">
     <link rel="manifest" href="{{ asset('manifest.webmanifest') }}">
     <meta name="theme-color" content="#16181D">
     <link rel="preconnect" href="https://fonts.googleapis.com">

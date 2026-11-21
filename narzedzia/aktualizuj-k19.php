@@ -9,12 +9,29 @@ $app = dirname(__DIR__).'/kanal19';
 $tmp = dirname(__DIR__).'/_k19tmp';
 $url = 'https://codeload.github.com/lukoglobalcom-bot/kanal19/zip/refs/heads/deploy';
 
+// Ochrona zmian zrobionych recznie na serwerze: zapamietujemy sumy wgranych plikow.
+// Jesli plik na serwerze rozni sie od tego, co wgralismy ostatnio, przed nadpisaniem robimy kopie.
+$GLOBALS['k19hashFile'] = dirname(__DIR__).'/kanal19/storage/k19-wgrane-pliki.json';
+$GLOBALS['k19old'] = is_file($GLOBALS['k19hashFile']) ? (json_decode(file_get_contents($GLOBALS['k19hashFile']), true) ?: []) : null;
+$GLOBALS['k19new'] = [];
+$GLOBALS['k19kopie'] = [];
 function rcopy($src, $dst) {
     if (is_dir($src)) {
         if (!is_dir($dst)) mkdir($dst, 0755, true);
         foreach (scandir($src) as $f) if ($f !== '.' && $f !== '..') rcopy("$src/$f", "$dst/$f");
     } else {
+        $newHash = md5_file($src);
+        if (is_file($dst) && $GLOBALS['k19old'] !== null && strpos($dst, '/vendor/') === false) {
+            $cur = md5_file($dst);
+            $known = $GLOBALS['k19old'][$dst] ?? null;
+            if ($cur !== $newHash && $cur !== $known) {
+                $copy = $dst.'.przed-aktualizacja-'.date('Ymd-His');
+                copy($dst, $copy);
+                $GLOBALS['k19kopie'][] = $copy;
+            }
+        }
         copy($src, $dst);
+        if (strpos($dst, '/vendor/') === false) $GLOBALS['k19new'][$dst] = $newHash;
     }
 }
 function rdel($p) {
@@ -68,6 +85,9 @@ $kernel = $laravel->make(Illuminate\Contracts\Console\Kernel::class);
 $kernel->bootstrap();
 $kernel->call('migrate', ['--force' => true]);
 echo $kernel->output();
+
+file_put_contents($GLOBALS['k19hashFile'], json_encode(array_merge($GLOBALS['k19old'] ?? [], $GLOBALS['k19new'])));
+foreach ($GLOBALS['k19kopie'] as $c) echo "UWAGA: plik byl zmieniony na serwerze – zachowano kopie: $c\n";
 
 rdel($tmp);
 unlink(__FILE__);

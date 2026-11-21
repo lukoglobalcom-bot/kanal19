@@ -2,6 +2,7 @@
     @vite('resources/js/map.js')
 
     <div class="mx-auto max-w-6xl px-4 pt-8 sm:px-6">
+        <x-banner name="N05-planer-trasy" fallback="A11-mapa-tablet" :alt="__('Planer trasy dla ciężarówek')" class="mb-5 max-h-[320px] object-cover" />
         <h1 class="font-display text-[clamp(30px,4vw,44px)] font-extrabold">🚛 {{ __('Planer trasy dla ciężarówek') }}</h1>
         <p class="text-k19-muted">{{ __('Trasa liczona dla wymiarów i masy Twojego pojazdu. Omijamy zamknięte drogi, niskie wiadukty i limity masy zgłoszone przez kierowców.') }}</p>
 

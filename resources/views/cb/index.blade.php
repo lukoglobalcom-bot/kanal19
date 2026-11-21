@@ -4,6 +4,7 @@
 @endphp
 <x-layouts.app :title="__('CB Kanał 19')">
     <div class="mx-auto max-w-2xl px-4 pt-8 sm:px-6">
+        <x-banner name="N04-cb-radio" fallback="A09-cb-radio" :alt="__('CB Kanał 19')" class="mb-5 max-h-[320px] object-cover" />
         <h1 class="font-display text-5xl font-extrabold">📻 {{ __('CB Kanał 19') }}</h1>
         <p class="mt-1 text-k19-muted">{{ __('Krótkie komunikaty kierowców: korki, kontrole, pogoda, wolne parkingi. Wiadomości znikają po 3 godzinach.') }}</p>
 

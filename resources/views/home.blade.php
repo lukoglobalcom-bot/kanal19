@@ -9,8 +9,12 @@
                 </h1>
                 <p class="max-w-2xl text-lg leading-relaxed text-[#C9CCD3]">{{ __('Oferty dla kierowców kat. B, C, C+E i D, taksówkarzy, kurierów, kierowców ADR i budowlanych – w kraju i za granicą. Aplikuj w kilka sekund, także bez CV.') }}</p>
             </div>
-            <figure class="m-0 flex-[1_1_300px] rounded-3xl border-4 border-k19-red bg-k19-paper p-3">
-                <img src="{{ asset('images/kanal19-logo.png') }}" alt="{{ __('Logo kanal19.pl – portal dla kierowców') }}" class="block h-auto w-full rounded-2xl">
+            <figure class="m-0 flex-[1_1_300px] overflow-hidden rounded-3xl border-4 border-k19-red bg-k19-paper">
+                @if ($hero = \App\Support\Graphics::banner('N01-portal', 'A01-ciezarowki-autostrada'))
+                    <img src="{{ $hero }}" alt="{{ __('Portal dla kierowców zawodowych') }}" width="1600" height="900" class="block h-auto w-full">
+                @else
+                    <img src="{{ asset('images/kanal19-logo.png') }}" alt="{{ __('Logo kanal19.pl – portal dla kierowców') }}" class="block h-auto w-full p-3">
+                @endif
             </figure>
 
             <form role="search" method="GET" action="{{ route('home') }}#oferty" class="flex w-full flex-wrap items-end gap-3 rounded-2xl bg-white p-4 text-k19-ink">
@@ -117,6 +121,28 @@
             {{ $offers->links() }}
         </div>
     </section>
+
+    {{-- Działy portalu – banery (pokazują się, gdy grafiki są na serwerze) --}}
+    @php($tiles = [
+        ['N02-praca', 'A07-uscisk-dloni', route('home').'#oferty', __('Praca dla kierowców')],
+        ['N03-sos', 'A10-pomoc-na-trasie', route('map.sos'), __('SOS na trasie – jeden przycisk')],
+        ['N04-cb-radio', 'A09-cb-radio', route('cb.index'), __('CB Kanał 19')],
+        ['N05-planer-trasy', 'A11-mapa-tablet', route('route.index'), __('Planer trasy dla ciężarówek')],
+        ['N14-parkingi', 'A02-parking-billboard', route('map.index'), __('Mapa i parkingi')],
+        ['N07-gielda-pojazdow', 'A08-rzad-ciezarowek', route('vehicles.index'), __('Giełda pojazdów')],
+        ['N12-aplikacja', 'A05-kierowca-w-kabinie', route('app'), __('Aplikacja na telefon')],
+        ['N15-dla-firm', 'A07-uscisk-dloni', route('register', ['konto' => 'company']), __('Dla pracodawców')],
+    ])
+    @if (\App\Support\Graphics::banner('N02-praca', 'A07-uscisk-dloni'))
+        <section class="mx-auto max-w-6xl px-4 pt-16 sm:px-6" aria-labelledby="k19-dzialy">
+            <h2 id="k19-dzialy" class="font-display text-[clamp(28px,3.4vw,40px)] font-extrabold">{{ __('Wszystko dla kierowcy w jednym miejscu') }}</h2>
+            <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                @foreach ($tiles as [$name, $photo, $href, $label])
+                    <x-banner :name="$name" :fallback="$photo" :href="$href" :alt="$label" />
+                @endforeach
+            </div>
+        </section>
+    @endif
 
     {{-- Mapa kierowców i SOS --}}
     <section class="mx-auto max-w-6xl px-4 pt-16 sm:px-6">

@@ -3,6 +3,7 @@
     <section class="bg-k19-ink pb-12 pt-10 text-white">
         <div class="mx-auto flex max-w-6xl flex-wrap items-end justify-between gap-6 px-4 sm:px-6">
             <div class="max-w-2xl">
+                <x-banner name="N07-gielda-pojazdow" fallback="A08-rzad-ciezarowek" :alt="__('Giełda pojazdów')" class="mb-5 max-h-[320px] object-cover" />
                 <h1 class="font-display text-[clamp(34px,5vw,56px)] font-extrabold leading-none">{{ __('Giełda pojazdów') }}</h1>
                 <p class="mt-3 text-lg text-[#C9CCD3]">{{ __('Ciągniki, naczepy, ciężarówki, busy i autobusy – nowe, używane i poleasingowe. Wystaw pojazd za darmo.') }}</p>
             </div>
