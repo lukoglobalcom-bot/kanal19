@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CbController;
 use App\Http\Controllers\PushController;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\MapController;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 // Strona główna i oferty – dostępne dla wszystkich
 Route::get('/', [OfferController::class, 'index'])->name('home');
+Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 Route::get('/oferty/{offer}', [OfferController::class, 'show'])->name('offers.show');
 // Giełda pojazdów – lista i ogłoszenia dla wszystkich
 Route::get('/pojazdy', [VehicleController::class, 'index'])->name('vehicles.index');

@@ -103,6 +103,56 @@ class JobOffer extends Model
         return self::CONTRACTS[$this->contract] ?? $this->contract;
     }
 
+    /**
+     * Dane strukturalne JobPosting (schema.org) – dzięki nim oferta trafia do Google Jobs.
+     * Kwoty traktujemy jako miesięczne wynagrodzenie (tak wpisują je firmy w formularzu).
+     */
+    public function toJsonLd(): array
+    {
+        $company = $this->company?->companyProfile;
+        $types = ['uop' => 'FULL_TIME', 'b2b' => 'CONTRACTOR', 'zlecenie' => 'CONTRACTOR'];
+        $desc = e($this->description).($this->requirements ? "\n\n".e($this->requirements) : '');
+
+        $data = [
+            '@context' => 'https://schema.org/',
+            '@type' => 'JobPosting',
+            'title' => $this->title,
+            'description' => nl2br($desc, false),
+            'datePosted' => $this->published_at?->toIso8601String(),
+            'validThrough' => $this->expires_at?->toIso8601String(),
+            'employmentType' => $types[$this->contract] ?? 'FULL_TIME',
+            'hiringOrganization' => array_filter([
+                '@type' => 'Organization',
+                'name' => $company?->name ?? $this->company?->name ?? 'kanal19.pl',
+            ]),
+            'jobLocation' => [
+                '@type' => 'Place',
+                'address' => [
+                    '@type' => 'PostalAddress',
+                    'addressLocality' => $this->city,
+                    'addressCountry' => $this->country,
+                ],
+            ],
+            'identifier' => ['@type' => 'PropertyValue', 'name' => 'kanal19.pl', 'value' => (string) $this->id],
+            'directApply' => true,
+            'url' => route('offers.show', $this),
+        ];
+        if ($this->salary_from) {
+            $data['baseSalary'] = [
+                '@type' => 'MonetaryAmount',
+                'currency' => $this->currency,
+                'value' => array_filter([
+                    '@type' => 'QuantitativeValue',
+                    'minValue' => (float) $this->salary_from,
+                    'maxValue' => $this->salary_to ? (float) $this->salary_to : null,
+                    'unitText' => 'MONTH',
+                ]),
+            ];
+        }
+
+        return $data;
+    }
+
     public function salaryLabel(): string
     {
         $symbol = ['PLN' => 'zł', 'EUR' => '€', 'CZK' => 'Kč', 'HUF' => 'Ft', 'RON' => 'lei', 'SEK' => 'kr', 'DKK' => 'kr', 'BGN' => 'лв'][$this->currency] ?? $this->currency;

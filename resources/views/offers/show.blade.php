@@ -1,4 +1,7 @@
-<x-layouts.app :title="$offer->title">
+<x-layouts.app :title="$offer->title" :description="$offer->title.' – '.$offer->city.' · '.$offer->salaryLabel().' · '.$offer->description">
+    @push('head')
+        <script type="application/ld+json">{!! json_encode($offer->toJsonLd(), JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG) !!}</script>
+    @endpush
     <div class="mx-auto max-w-4xl px-4 pt-10 sm:px-6">
         @include('offers._details', ['offer' => $offer])
 

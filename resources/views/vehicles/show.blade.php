@@ -1,6 +1,6 @@
 @php($v = \App\Models\VehicleListing::class)
 @php($preview = $preview ?? false)
-<x-layouts.app :title="$listing->title()">
+<x-layouts.app :title="$listing->title()" :description="$listing->title().' · '.$listing->priceLabel().' · '.$listing->description" :og-image="$listing->cover()?->url()">
     <div class="mx-auto max-w-6xl px-4 pt-8 sm:px-6">
         @if ($preview)
             <div class="mb-5 rounded-2xl border-2 border-dashed border-k19-red bg-white p-4 font-semibold">{{ __('To jest podgląd. Tak kupujący zobaczą Twoje ogłoszenie.') }}</div>

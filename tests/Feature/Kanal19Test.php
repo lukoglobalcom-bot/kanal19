@@ -240,4 +240,29 @@ class Kanal19Test extends TestCase
         $this->get('/sprzedaj-pojazd')->assertOk();
         $this->assertNull(\App\Models\User::where('email', 'ewa@example.com')->value('phone_verified_at'));
     }
+
+    public function test_offer_has_google_jobs_data_and_sitemap_lists_only_active(): void
+    {
+        $c = $this->company();
+        $o = $this->offer($c);
+        $old = $this->offer($c);
+        $old->forceFill(['expires_at' => now()->subDay()])->save();
+
+        $html = $this->get('/oferty/'.$o->id)->assertOk()->assertSee('<meta name="description"', false)->getContent();
+        preg_match('#<script type="application/ld\+json">(.+?)</script>#s', $html, $m);
+        $ld = json_decode($m[1], true);
+        $this->assertSame('JobPosting', $ld['@type']);
+        $this->assertSame('Kierowca C+E chłodnia', $ld['title']);
+        $this->assertSame('Firma', $ld['hiringOrganization']['name']);
+        $this->assertSame('PL', $ld['jobLocation']['address']['addressCountry']);
+        $this->assertEquals(9000, $ld['baseSalary']['value']['minValue']);
+        $this->assertSame('MONTH', $ld['baseSalary']['value']['unitText']);
+        $this->assertSame('FULL_TIME', $ld['employmentType']);
+        $this->assertNotEmpty($ld['validThrough']);
+
+        $xml = $this->get('/sitemap.xml')->assertOk()->assertHeader('Content-Type', 'application/xml; charset=UTF-8')->getContent();
+        $this->assertStringContainsString(route('offers.show', $o), $xml);
+        $this->assertStringNotContainsString('/oferty/'.$old->id.'<', $xml);
+        $this->assertStringContainsString(route('pause'), $xml);
+    }
 }
