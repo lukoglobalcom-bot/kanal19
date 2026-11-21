@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700;800&display=swap">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-k19-paper font-sans text-k19-ink antialiased">
+<body class="min-h-screen bg-k19-paper pb-20 font-sans text-k19-ink antialiased md:pb-0">
 
 <header class="bg-k19-ink text-white">
     <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
@@ -132,5 +132,6 @@
         window.addEventListener('load', () => navigator.serviceWorker.register('{{ asset('sw.js') }}').catch(() => {}));
     }
 </script>
+<x-app-nav />
 </body>
 </html>
