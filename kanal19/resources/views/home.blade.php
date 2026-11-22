@@ -44,6 +44,15 @@
         </div>
     </section>
 
+    {{-- Baner: aplikacja do pobrania za darmo (pokazuje się, gdy grafika jest na serwerze) --}}
+    @if (\App\Support\Graphics::banner('N21-aplikacja-za-darmo'))
+        <div class="mx-auto max-w-6xl px-4 pt-10 sm:px-6">
+            <div style="max-width:960px;margin:0 auto">
+                <x-banner name="N21-aplikacja-za-darmo" :href="route('app')" :alt="__('Aplikacja Kanał 19 – za darmo')" />
+            </div>
+        </div>
+    @endif
+
     @if ($billboard)
         <div class="mx-auto max-w-6xl px-4 pt-10 sm:px-6"><x-ad-slot :ad="$billboard" /></div>
     @endif
