@@ -36,7 +36,7 @@ class GraphicsTest extends TestCase
             $this->markTestSkipped('Prawdziwe grafiki są w katalogu – test działa na pustym.');
         }
         File::ensureDirectoryExists($this->dir.'/de');
-        foreach (['N02-praca.webp', 'N01-portal.webp', 'A07-uscisk-dloni.webp', 'A01-ciezarowki-autostrada.webp', 'de/N02-praca.webp', 'kanal19-logo-biale.svg'] as $f) {
+        foreach (['N02-praca.webp', 'N01-portal.webp', 'N21-aplikacja-za-darmo.webp', 'A07-uscisk-dloni.webp', 'A01-ciezarowki-autostrada.webp', 'de/N02-praca.webp', 'kanal19-logo-biale.svg'] as $f) {
             File::put($this->dir.'/'.$f, 'x');
         }
 
@@ -51,6 +51,7 @@ class GraphicsTest extends TestCase
         $html = $this->withSession(['locale' => 'pl'])->get('/')->assertOk()->getContent();
         $this->assertStringContainsString('images/grafiki/N01-portal.webp', $html);
         $this->assertStringContainsString('images/grafiki/kanal19-logo-biale.svg', $html);
+        $this->assertStringContainsString('images/grafiki/N21-aplikacja-za-darmo.webp', $html);
         $this->assertStringContainsString('Wszystko dla kierowcy w jednym miejscu', $html);
     }
 }
